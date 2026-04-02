@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en" xml:lang="en">
+  <!--
+    ============================================
+    Transmission Web Interface - 主页面
+    ============================================
+    这是 Transmission BT 下载工具的网页控制界面
+    
+    页面结构：
+    1. 头部 (head) - 引入 CSS、JS、图标等
+    2. 工具栏 (toolbar) - 操作按钮区域
+    3. 状态栏 (statusbar) - 过滤、搜索、速度显示
+    4. 工作区 (workarea) - 种子列表和详情面板
+    
+    相关文件：
+    - transmission-app.css - 样式文件
+    - transmission-app.js - JavaScript 逻辑
+  -->
+
+  <head>
+    <!-- 基础元数据 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- 兼容性设置：支持 IE 8/9/10 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=8,IE=9,IE=10" />
+    <!-- ticket #4555 -->
+    
+    <!-- 移动端适配：禁止缩放 -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <!-- 允许作为 iOS 主屏幕应用运行 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    
+    <!-- ============================================
+         第 1 部分：引入外部资源
+         ============================================ -->
+    <!-- 主样式表 -->
+    <link href="./transmission-app.css" rel="stylesheet" />
+    <!-- 网站图标 (旧版浏览器) -->
+    <link href="./images/favicon.ico" rel="icon" />
+    <!-- 网站图标 (新版浏览器) -->
+    <link href="./images/favicon.png" rel="shortcut icon" />
+    <!-- iOS 设备主屏幕图标 -->
+    <link rel="apple-touch-icon" href="./images/webclip-icon.png" />
+    
+    <!-- 主 JavaScript 文件 -->
+    <script type="text/javascript" src="./transmission-app.js"></script>
+    
+    <!-- 页面标题 -->
+    <title>Transmission Web Interface</title>
+  </head>
+
+  <body>
+    <!-- ============================================
+         第 2 部分：React/Vue 等框架的挂载点
+         (当前未使用，保留用于未来扩展)
+         ============================================ -->
+    <div id="app"></div>
+
+    <!-- ============================================
+         第 3 部分：主窗口容器
+         包含：工具栏、状态栏、工作区
+         ============================================ -->
+    <div id="mainwin">
+      
+      <!-- ==========================================
+           3.1 顶部工具栏
+           包含：打开、删除、开始、暂停、详情、更多菜单按钮
+           ========================================== -->
+      <header class="mainwin-toolbar" id="mainwin-toolbar">
+        <!-- 
+          【打开按钮】
+          功能：打开添加种子对话框
+          快捷键：Alt + O
+          对应 JS 动作：'open-torrent'
+        -->
+        <button
+          aria-keyshortcuts="Alt+O"
+          aria-label="Open torrent"
+          class="toolbar-button"
+          data-action="open-torrent"
+          id="toolbar-open"
+          tabindex="0"
+        >
+          Open
+        </button>
+
+        <!-- 
+          【删除按钮】
+          功能：删除选中的种子
+          快捷键：Alt + Delete
+          对应 JS 动作：'remove-selected-torrents'
+        -->
+        <button
+          aria-keyshortcuts="Alt+Delete"
+          aria-label="Remove selected torrents"
+          class="toolbar-button"
+          data-action="remove-selected-torrents"
+          id="toolbar-delete"
+          tabindex="0"
+        >
+          Delete
+        </button>
+
+        <!-- 分隔线 -->
+        <div class="toolbar-separator"></div>
+
+        <!-- 
+          【开始按钮】
+          功能：恢复/开始选中的种子下载
+          快捷键：Alt + R
+          对应 JS 动作：'resume-selected-torrents'
+        -->
+        <button
+          aria-keyshortcuts="Alt+R"
+          aria-label="Resume selected torrents"
+          class="toolbar-button"
+          data-action="resume-selected-torrents"
+          id="toolbar-start"
+          tabindex="0"
+        >
+          Start
+        </button>
+
+        <!-- 
+          【暂停按钮】
+          功能：暂停选中的种子下载
+          快捷键：Alt + P
+          对应 JS 动作：'pause-selected-torrents'
+        -->
+        <button
+          aria-keyshortcuts="Alt+P"
+          aria-label="Pause selected torrents"
+          class="toolbar-button"
+          data-action="pause-selected-torrents"
+          id="toolbar-pause"
+          tabindex="0"
+        >
+          Stop
+        </button>
+
+        <!-- 分隔线 -->
+        <div class="toolbar-separator"></div>
+
+        <!-- 
+          【详情按钮 (Inspector)】
+          功能：显示/隐藏右侧详情面板
+          快捷键：Alt + I
+          对应 JS 动作：'show-inspector'
+          
+          点击后 JS 会创建 Inspector 实例，显示种子的详细信息
+        -->
+        <button
+          aria-keyshortcuts="Alt+I"
+          aria-label="Toggle inspector"
+          class="toolbar-button"
+          data-action="show-inspector"
+          id="toolbar-inspector"
+          tabindex="0"
+        >
+          Inspector
+        </button>
+
+        <!-- 弹性空间：将后续按钮推到右侧 -->
+        <span class="flexible-space"></span>
+
+        <!-- 
+          【更多菜单按钮】
+          功能：显示更多选项菜单（排序、过滤、设置等）
+          快捷键：Alt + M
+          对应 JS 动作：'show-overflow-menu'
+          
+          这是一个图标按钮（无文字），JS 会在这里插入菜单图标
+        -->
+        <button
+          aria-keyshortcuts="Alt+M"
+          aria-label="Show sidebar menu"
+          class="toolbar-button"
+          data-action="show-overflow-menu"
+          id="toolbar-overflow"
+          tabindex="0"
+        ></button>
+      </header>
+
+      <!-- ==========================================
+           3.2 状态栏
+           包含：过滤下拉框、搜索框、下载/上传速度、乌龟模式按钮
+           ========================================== -->
+      <header id="mainwin-statusbar">
+        <!-- 过滤下拉框标签 -->
+        <span>Show</span>
+        
+        <!-- 
+          【过滤模式选择】
+          JS 会动态填充选项：
+          - All (全部)
+          - Active (活动中)
+          - Downloading (下载中)
+          - Seeding (做种中)
+          - Paused (已暂停)
+          - Finished (已完成)
+          - Error (错误)
+          - Private torrents (私有种子)
+          - Public torrents (公开种子)
+        -->
+        <select id="filter-mode"></select>
+
+        <!-- 
+          【Tracker 过滤】
+          JS 会动态填充当前所有 Tracker 的列表
+          用于只显示特定站点的种子
+        -->
+        <select id="filter-tracker"></select>
+
+        <!-- 搜索框容器（相对定位，用于放置清除按钮） -->
+        <div style="display: flex; position: relative">
+          <!-- 
+            【搜索/过滤输入框】
+            功能：按名称过滤种子列表
+            输入时 JS 会实时过滤显示的种子
+          -->
+          <input type="search" id="torrent-search" placeholder="Filter" />
+          
+          <!-- 
+            【清除搜索按钮】
+            点击后清空搜索框内容
+            默认隐藏，有输入内容时显示
+          -->
+          <input type="reset" id="reset" value="&times;" />
+        </div>
+
+        <!-- 显示当前过滤后的种子数量 -->
+        <span id="filter-count">&nbsp;</span>
+
+        <!-- 弹性空间 -->
+        <span class="flexible-space"></span>
+
+        <!-- 
+          【下载速度显示】
+          JS 会在这里显示当前总下载速度
+          例如：▼ 2.5 MB/s
+        -->
+        <div class="speed-container">
+          <div id="speed-down"></div>
+        </div>
+
+        <!-- 
+          【上传速度显示】
+          JS 会在这里显示当前总上传速度
+          例如：▲ 500 KB/s
+        -->
+        <div class="speed-container">
+          <span class="flexible-space"></span>
+          <div id="speed-up"></div>
+        </div>
+
+        <!-- 
+          【乌龟模式按钮 (Turtle Mode)】
+          功能：切换备用速度限制（限速模式）
+          开启后会使用较低的上传/下载速度限制
+          图标是一个乌龟（JS 动态添加背景图）
+        -->
+        <button id="turtle"></button>
+      </header>
+
+      <!-- ==========================================
+           3.3 工作区（主内容区域）
+           包含：种子列表容器、详情面板（JS 动态添加）
+           ========================================== -->
+      <main id="mainwin-workarea">
+        <!-- 
+          【种子列表容器】
+          点击种子可以选择/多选
+          双击种子打开详情面板
+          支持拖拽添加种子文件
+          
+          JS 会在这里动态添加/删除种子条目
+          每个种子条目是一个 <li> 元素，类名为 .torrent
+        -->
+        <div id="torrent-container">
+          <!-- 种子列表 - JS 会在这里填充内容 -->
+          <ul id="torrent-list"></ul>
+        </div>
+      </main>
+
+      <!-- 
+        【拖拽上传提示区域】
+        当用户拖拽文件到页面时显示此提示
+        默认隐藏，拖拽时 JS 会显示它
+      -->
+      <div class="upload-div">
+        <h2>Drag your torrent files here to add them to Transmission.</h2>
+      </div>
+    </div>
+  </body>
+</html>
