@@ -1,0 +1,693 @@
+/**
+ * New Design Styles for Transmission Web Interface
+ * Tokens aligned with NewDesign.pen (Dark)
+ */
+
+/* ============================================
+   CSS Variables - Design System (NewDesign.pen)
+   ============================================ */
+:root {
+  /* Dark theme — matches NewDesign.pen variables */
+  --background: #111111;
+  --foreground: #ffffff;
+  --card: #1a1a1a;
+  --card-foreground: #ffffff;
+  --popover: #1a1a1a;
+  --popover-foreground: #ffffff;
+  --primary: #ff8400;
+  --primary-foreground: #111111;
+  --secondary: #2e2e2e;
+  --secondary-foreground: #ffffff;
+  --muted: #2e2e2e;
+  --muted-foreground: #b8b9b6;
+  --accent: #111111;
+  --accent-foreground: #f2f3f0;
+  --destructive: #ff5c33;
+  --destructive-foreground: #ffffff;
+  --border: #2e2e2e;
+  --input: #2e2e2e;
+  --ring: #d4d4d4;
+
+  /* Semantic status (pen dark) */
+  --color-info: #222229;
+  --color-info-foreground: #b2b2ff;
+  --color-success: #222924;
+  --color-success-foreground: #b6ffce;
+  --color-warning: #291c0f;
+  --color-warning-foreground: #ff8400;
+
+  /* Toolbar variables */
+  --toolbar-height: 64px;
+  --toolbar-padding: 16px 24px;
+  --toolbar-gap: 12px;
+  --toolbar-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+  /* Status bar variables */
+  --statusbar-height: 56px;
+  --statusbar-padding: 16px 24px;
+  --statusbar-gap: 16px;
+
+  /* Card variables (torrent list) — pen: shadow y=2 blur=4 #0000000d */
+  --card-radius: 12px;
+  --card-padding: 20px;
+  --card-gap: 16px;
+  --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --card-border: 1px solid var(--border);
+  --torrent-row-inner-gap: 4px;
+
+  /* Button variables */
+  --button-height: 40px;
+  --button-padding: 8px 16px;
+  --button-radius: 6px;
+  --button-gap: 8px;
+
+  /* Progress bar */
+  --progress-height: 8px;
+  --progress-radius: 999px;
+}
+
+/* ============================================
+   Global Background
+   ============================================ */
+body,
+#mainwin {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ============================================
+   Toolbar Styles
+   ============================================ */
+#mainwin-toolbar,
+.mainwin-toolbar {
+  height: var(--toolbar-height) !important;
+  box-sizing: border-box !important;
+  background-color: var(--card) !important;
+  padding: var(--toolbar-padding) !important;
+  gap: var(--toolbar-gap);
+  box-shadow: var(--toolbar-shadow);
+  border-bottom: none !important;
+  display: flex;
+  align-items: center;
+}
+
+/* Toolbar buttons - Base styles (pen: 40px height, radius 6, gap 8) */
+#mainwin-toolbar button,
+.mainwin-toolbar button {
+  height: var(--button-height) !important;
+  min-width: auto !important;
+  padding: var(--button-padding) !important;
+  border-radius: var(--button-radius) !important;
+  border: none !important;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--button-gap);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+  margin-right: 0 !important;
+}
+
+/* Primary — Open (pen: --primary on --card toolbar) */
+#toolbar-open {
+  background-color: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+}
+
+#toolbar-open:hover {
+  background-color: #e67700 !important;
+}
+
+/* Destructive — Delete (pen dark: --destructive) */
+#toolbar-delete {
+  background-color: var(--destructive) !important;
+  color: var(--destructive-foreground) !important;
+}
+
+#toolbar-delete:hover {
+  background-color: #e04e2a !important;
+}
+
+/* Secondary — Start / Stop */
+#toolbar-start,
+#toolbar-pause {
+  background-color: var(--secondary) !important;
+  color: var(--secondary-foreground) !important;
+}
+
+#toolbar-start:hover,
+#toolbar-pause:hover {
+  background-color: #3a3a3a !important;
+}
+
+/* Ghost — Inspector */
+#toolbar-inspector {
+  background-color: transparent !important;
+  color: var(--foreground) !important;
+}
+
+#toolbar-inspector:hover {
+  background-color: var(--secondary) !important;
+}
+
+/* Overflow — same as pen NitJk (40×40, secondary fill) */
+#toolbar-overflow {
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  padding: 0 !important;
+  background-color: var(--secondary) !important;
+  color: transparent !important;
+  position: relative;
+  overflow: hidden;
+  margin-right: 0 !important;
+}
+
+/* Ensure toolbar/statusbar right edge lines up with torrent cards */
+#mainwin-statusbar,
+.mainwin-statusbar {
+  box-sizing: border-box !important;
+  padding: var(--statusbar-padding) !important;
+}
+
+#mainwin-statusbar > #turtle {
+  margin-right: 0 !important;
+}
+
+#toolbar-overflow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='1'%3E%3C/circle%3E%3Ccircle cx='19' cy='12' r='1'%3E%3C/circle%3E%3Ccircle cx='5' cy='12' r='1'%3E%3C/circle%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Toolbar separators */
+.toolbar-separator {
+  width: 1px;
+  height: 24px;
+  background-color: var(--border);
+  margin: 0 4px;
+}
+
+/* Flexible space */
+.flexible-space {
+  flex: 1;
+}
+
+/* ============================================
+   Status Bar Styles
+   ============================================ */
+#mainwin-statusbar,
+.mainwin-statusbar {
+  height: var(--statusbar-height) !important;
+  background-color: var(--background) !important;
+  padding: var(--statusbar-padding) !important;
+  gap: var(--statusbar-gap);
+  border-bottom: none !important;
+  display: flex;
+  align-items: center;
+}
+
+/* Status bar labels */
+#mainwin-statusbar span {
+  color: var(--muted-foreground);
+  font-size: 14px;
+}
+
+/* Filter dropdowns (pen: 140×40, stroke border, padding 10/12) */
+#filter-mode,
+#filter-tracker {
+  width: 140px;
+  height: var(--button-height);
+  box-sizing: border-box;
+  background-color: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--button-radius);
+  color: var(--foreground) !important;
+  padding: 10px 28px 10px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23b8b9b6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+/* Search box (pen: 240×40) */
+#torrent-search {
+  width: 240px !important;
+  max-width: 240px !important;
+  height: var(--button-height);
+  box-sizing: border-box;
+  background-color: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--button-radius);
+  color: var(--foreground) !important;
+  padding: 10px 12px 10px 36px !important;
+  font-size: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23b8b9b6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 12px center;
+}
+
+#torrent-search::placeholder {
+  color: var(--muted-foreground);
+}
+
+/* Speed containers (pen: icon gap 8 inside each speed row) */
+.speed-container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+#speed-down,
+#speed-up {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 80px;
+}
+
+/* Speed icons — pen: color-info-foreground / color-success-foreground */
+#speed-down::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23B2B2FF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='12' y1='5' x2='12' y2='19'%3E%3C/line%3E%3Cpolyline points='19 12 12 19 5 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: contain;
+}
+
+#speed-up::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23B6FFCE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='12' y1='19' x2='12' y2='5'%3E%3C/line%3E%3Cpolyline points='5 12 12 5 19 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: contain;
+}
+
+/* Default speed display when empty */
+#speed-down:empty::after {
+  content: '0 kB/s';
+  color: var(--muted-foreground);
+}
+
+#speed-up:empty::after {
+  content: '0 kB/s';
+  color: var(--muted-foreground);
+}
+
+/* Turtle button — pen: 40×40, card fill, 1px border */
+#turtle {
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  box-sizing: border-box;
+  background-color: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--button-radius) !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+#turtle::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23b8b9b6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpolyline points='12 6 12 12 16 14'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Override legacy positioning so turtle icon is truly centered */
+#mainwin-statusbar #turtle::before {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  padding: 0 !important;
+}
+
+#turtle:hover {
+  background-color: var(--secondary) !important;
+}
+
+/* App toggles class `alt-speed-enabled` (not speed-enabled) */
+#turtle.alt-speed-enabled {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+#turtle.alt-speed-enabled::before {
+  filter: brightness(0) invert(1);
+}
+
+/* Filter count */
+#filter-count {
+  color: var(--muted-foreground);
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+/* ============================================
+   Main workarea (scroll parent may show bar; hide for clean edge)
+   ============================================ */
+#mainwin-workarea {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#mainwin-workarea::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* ============================================
+   Torrent List Styles
+   ============================================ */
+#torrent-container {
+  /* Right edge of cards aligns with #turtle (same as left/right padding on statusbar: 24px) */
+  padding: 24px 24px 24px 24px;
+  background-color: var(--background);
+  /* Hide scrollbar but keep scrolling (wheel / touch / keyboard) */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE / legacy Edge */
+}
+
+#torrent-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+  width: 0;
+  height: 0;
+}
+
+#torrent-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Torrent item/card — chrome for all rows; grid only when mock DOM has .torrent-info */
+#torrent-list .torrent {
+  background-color: var(--card);
+  border-radius: var(--card-radius);
+  border: var(--card-border);
+  box-shadow: var(--card-shadow);
+  box-sizing: border-box;
+  padding: var(--card-padding);
+  margin: 0;
+  position: relative;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* NewDesign.pen layout: header row (icon + title + badge) → progress → footer */
+#torrent-list .torrent:has(.torrent-info) {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "icon info badge"
+    "progress progress progress"
+    "footer footer footer";
+  gap: var(--card-gap);
+  align-items: center;
+}
+
+#torrent-list .torrent:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+#torrent-list .torrent:nth-child(2n),
+#torrent-list .torrent:nth-child(odd) {
+  background-color: var(--card);
+}
+
+/* Status icon — pen: 48×48, radius 10, centered 24px lucide */
+#torrent-list .torrent .icon {
+  grid-area: icon;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  background-color: var(--secondary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-foreground);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+#torrent-list .torrent .icon svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* Status icons — pen: color-info / color-success / muted */
+#torrent-list .torrent.downloading .icon {
+  background-color: var(--color-info);
+  color: var(--color-info-foreground);
+}
+
+#torrent-list .torrent.seeding .icon {
+  background-color: var(--color-success);
+  color: var(--color-success-foreground);
+}
+
+#torrent-list .torrent.paused .icon,
+#torrent-list .torrent.queued .icon {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+}
+
+#torrent-list .torrent.checking .icon {
+  background-color: var(--color-warning);
+  color: var(--color-warning-foreground);
+}
+
+/* Title block — pen: vertical gap 4 between name + meta */
+#torrent-list .torrent .torrent-info {
+  grid-area: info;
+  display: flex;
+  flex-direction: column;
+  gap: var(--torrent-row-inner-gap);
+  min-width: 0;
+  justify-content: center;
+}
+
+#torrent-list .torrent .torrent-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#torrent-list .torrent .torrent-meta {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+/* Percent / status pill — pen: padding 6×12, radius pill, 13 semibold */
+#torrent-list .torrent .percent-done {
+  grid-area: badge;
+  align-self: center;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 6px 12px;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+#torrent-list .torrent.seeding .percent-done {
+  background-color: var(--color-success);
+  color: var(--color-success-foreground);
+}
+
+#torrent-list .torrent.paused .percent-done {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+}
+
+#torrent-list .torrent.checking .percent-done {
+  background-color: var(--color-warning);
+  color: var(--color-warning-foreground);
+}
+
+/* Progress track — pen: height 8, track fill secondary, pill caps */
+#torrent-list .torrent .torrent-progress-bar {
+  grid-area: progress;
+  width: 100%;
+  min-height: var(--progress-height);
+  height: var(--progress-height);
+  background-color: var(--secondary);
+  border-radius: var(--progress-radius);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+/* Progress fill */
+#torrent-list .torrent .torrent-progress-bar .progress {
+  height: 100%;
+  min-width: 0;
+  background-color: var(--color-info-foreground);
+  border-radius: var(--progress-radius);
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+#torrent-list .torrent.seeding .torrent-progress-bar .progress {
+  background-color: var(--color-success-foreground);
+}
+
+#torrent-list .torrent.paused .torrent-progress-bar .progress {
+  background-color: var(--muted-foreground);
+}
+
+#torrent-list .torrent.checking .torrent-progress-bar .progress {
+  background-color: var(--color-warning-foreground);
+}
+
+/* Footer — pen: space-between, left stats gap 16, right ETA icon+text gap 6, 13 regular */
+#torrent-list .torrent .torrent-footer {
+  grid-area: footer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+#torrent-list .torrent .torrent-stats-left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  row-gap: 6px;
+  min-width: 0;
+}
+
+#torrent-list .torrent .peers,
+#torrent-list .torrent .speed {
+  color: var(--muted-foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+#torrent-list .torrent .speed {
+  letter-spacing: 0.01em;
+}
+
+#torrent-list .torrent .eta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  color: var(--muted-foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+#torrent-list .torrent .eta svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.95;
+}
+
+/* ============================================
+   Upload/Drop Zone
+   ============================================ */
+.upload-div {
+  background-color: var(--accent);
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 100px;
+}
+
+.upload-div h2 {
+  color: var(--muted-foreground);
+  font-size: 16px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.upload-div::before {
+  content: '';
+  width: 28px;
+  height: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23a3a3a3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242'%3E%3C/path%3E%3Cpath d='M12 12v9'%3E%3C/path%3E%3Cpath d='m16 16-4-4-4 4'%3E%3C/path%3E%3C/svg%3E");
+  background-size: contain;
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+@media (max-width: 768px) {
+  :root {
+    --toolbar-padding: 12px 16px;
+    --statusbar-padding: 12px 16px;
+    --card-padding: 16px;
+  }
+
+  #torrent-search {
+    width: min(240px, 100%) !important;
+    max-width: min(240px, 100%) !important;
+  }
+  
+  #filter-mode,
+  #filter-tracker {
+    width: 100px;
+  }
+}
