@@ -1,11 +1,14 @@
 /**
  * Mock Torrent Data Generator
- * 生成各种状态的假种子数据用于调试
+ * 拦截 RPC 请求，返回假数据供 transmission-app.js 渲染
  * 
  * 开关控制方式（三选一）：
  * 1. 修改下方 CONFIG.enable 的值
  * 2. 浏览器控制台执行：localStorage.setItem('mock_torrents_enabled', 'true' 或 'false')
  * 3. URL 添加参数：?mock_torrents=true 或 ?mock_torrents=false
+ * 
+ * 数据格式：与正式 RPC 响应一致，使用 format: "table" 格式
+ * torrents[0] 为字段名数组，torrents[1..n] 为数据行数组
  */
 
 (function() {
@@ -42,390 +45,591 @@
     return CONFIG.enable;
   }
 
-  // 等待页面加载完成
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMockData);
-  } else {
-    initMockData();
+  // 如果禁用了假数据，直接返回
+  if (!isEnabled()) {
+    console.log('[MockData] Mock data is DISABLED. Enable it by:');
+    console.log('  - Setting CONFIG.enable = true in mock-torrents.js');
+    console.log('  - OR running: localStorage.setItem("mock_torrents_enabled", "true")');
+    console.log('  - OR adding ?mock_torrents=true to URL');
+    return;
   }
 
-  function initMockData() {
-    // 检查开关
-    if (!isEnabled()) {
-      console.log('[MockData] Mock data is DISABLED. Enable it by:');
-      console.log('  - Setting CONFIG.enable = true in mock-torrents.js');
-      console.log('  - OR running: localStorage.setItem("mock_torrents_enabled", "true")');
-      console.log('  - OR adding ?mock_torrents=true to URL');
-      return;
-    }
+  // ==================== 数据定义 ====================
+  
+  // 字段名定义（与正式 RPC 响应一致）
+  const FIELDS = [
+    'id', 'added_date', 'file_count', 'name', 'primary_mime_type', 'total_size',
+    'error', 'error_string', 'eta', 'is_finished', 'is_stalled', 'labels',
+    'left_until_done', 'metadata_percent_complete', 'peers_connected',
+    'peers_getting_from_us', 'peers_sending_to_us', 'percent_done',
+    'queue_position', 'rate_download', 'rate_upload', 'recheck_progress',
+    'seed_ratio_mode', 'seed_ratio_limit', 'size_when_done', 'status',
+    'trackers', 'download_dir', 'uploaded_ever', 'upload_ratio', 'webseeds_sending_to_us'
+  ];
 
-    console.log('[MockData] Initializing mock torrent data...');
-    console.log('[MockData] To disable, run: localStorage.setItem("mock_torrents_enabled", "false")');
+  // 状态常量（与 transmission-app.js 一致）
+  const STATUS = {
+    STOPPED: 0,        // 暂停
+    CHECK_WAIT: 1,     // 等待校验
+    CHECK: 2,          // 正在校验
+    DOWNLOAD_WAIT: 3,  // 等待下载
+    DOWNLOAD: 4,       // 正在下载
+    SEED_WAIT: 5,      // 等待做种
+    SEED: 6            // 正在做种
+  };
+
+  // 创建种子数据行
+  function createTorrentRow(data) {
+    const row = new Array(FIELDS.length);
+    FIELDS.forEach((field, idx) => {
+      row[idx] = data[field] !== undefined ? data[field] : getDefaultValue(field);
+    });
+    return row;
+  }
+
+  // 字段默认值
+  function getDefaultValue(field) {
+    const defaults = {
+      'id': 0,
+      'added_date': Math.floor(Date.now() / 1000) - 86400,
+      'file_count': 1,
+      'name': '',
+      'primary_mime_type': 'application/octet-stream',
+      'total_size': 0,
+      'error': 0,
+      'error_string': '',
+      'eta': -1,
+      'is_finished': false,
+      'is_stalled': false,
+      'labels': [],
+      'left_until_done': 0,
+      'metadata_percent_complete': 1,
+      'peers_connected': 0,
+      'peers_getting_from_us': 0,
+      'peers_sending_to_us': 0,
+      'percent_done': 0,
+      'queue_position': 0,
+      'rate_download': 0,
+      'rate_upload': 0,
+      'recheck_progress': 0,
+      'seed_ratio_mode': 0,
+      'seed_ratio_limit': 2.0,
+      'size_when_done': 0,
+      'status': 0,
+      'trackers': [],
+      'download_dir': '/downloads',
+      'uploaded_ever': 0,
+      'upload_ratio': 0,
+      'webseeds_sending_to_us': 0
+    };
+    return defaults[field];
+  }
+
+  // 构建表格格式的种子数据 [header, row1, row2, ...]
+  let mockTorrentsTable = [
+    FIELDS,
+    // 种子 1: 正在下载的高清电影
+    createTorrentRow({
+      id: 1,
+      added_date: Math.floor(Date.now() / 1000) - 3600,
+      file_count: 7,
+      name: '【高清影视之家发布 www.HDBTHD.com】盒中之海[国语配音+中文字幕].He.Zhong.Zhi.Hai.2024.2160p.WEB-DL.H264.DDP-DreamHD',
+      primary_mime_type: 'video/mp4',
+      total_size: 9965972936,
+      error: 0,
+      error_string: '',
+      eta: 1800,
+      is_finished: false,
+      is_stalled: false,
+      labels: [],
+      left_until_done: 5315912852,
+      metadata_percent_complete: 1,
+      peers_connected: 12,
+      peers_getting_from_us: 0,
+      peers_sending_to_us: 8,
+      percent_done: 0.4666,
+      queue_position: 0,
+      rate_download: 2949120,
+      rate_upload: 51200,
+      size_when_done: 9965972936,
+      status: STATUS.DOWNLOAD,
+      trackers: [{ announce: 'http://tracker1.itzmx.com:8080/announce', id: 0, scrape: 'http://tracker1.itzmx.com:8080/scrape', sitename: 'itzmx', tier: 0 }],
+      uploaded_ever: 156384256,
+      upload_ratio: 0.0157
+    }),
+    // 种子 2: 刚开始下载的电影
+    createTorrentRow({
+      id: 2,
+      added_date: Math.floor(Date.now() / 1000) - 600,
+      file_count: 4,
+      name: '【高清影视之家发布 www.WHATMV.com】阿凡达：火与烬[杜比视界版本][国英多音轨+简繁英双语特效字幕].2025.2160p.iTunes.WEB-DL.DDP.7.1.Atmos.DV.H.265-DreamHD',
+      primary_mime_type: 'video/x-matroska',
+      total_size: 38964496150,
+      error: 0,
+      error_string: '',
+      eta: 86400,
+      is_finished: false,
+      is_stalled: false,
+      labels: [],
+      left_until_done: 38961098752,
+      metadata_percent_complete: 1,
+      peers_connected: 24,
+      peers_getting_from_us: 0,
+      peers_sending_to_us: 15,
+      percent_done: 0.000087,
+      queue_position: 1,
+      rate_download: 458752,
+      rate_upload: 0,
+      size_when_done: 38964496150,
+      status: STATUS.DOWNLOAD,
+      trackers: [{ announce: 'http://tracker1.itzmx.com:8080/announce', id: 1, scrape: 'http://tracker1.itzmx.com:8080/scrape', sitename: 'itzmx', tier: 0 }],
+      uploaded_ever: 0,
+      upload_ratio: 0
+    }),
+    // 种子 3: 正在做种（已完成）
+    createTorrentRow({
+      id: 3,
+      added_date: Math.floor(Date.now() / 1000) - 172800,
+      file_count: 1,
+      name: 'ubuntu-22.04.3-desktop-amd64.iso',
+      primary_mime_type: 'application/x-iso9660-image',
+      total_size: 4823456789,
+      error: 0,
+      error_string: '',
+      eta: -1,
+      is_finished: true,
+      is_stalled: false,
+      labels: ['linux', 'iso'],
+      left_until_done: 0,
+      metadata_percent_complete: 1,
+      peers_connected: 42,
+      peers_getting_from_us: 18,
+      peers_sending_to_us: 0,
+      percent_done: 1,
+      queue_position: 2,
+      rate_download: 0,
+      rate_upload: 1126400,
+      size_when_done: 4823456789,
+      status: STATUS.SEED,
+      trackers: [{ announce: 'http://tracker.example.com/announce', id: 0, scrape: 'http://tracker.example.com/scrape', sitename: 'example', tier: 0 }],
+      uploaded_ever: 11817589234,
+      upload_ratio: 2.45
+    }),
+    // 种子 4: 暂停的下载
+    createTorrentRow({
+      id: 4,
+      added_date: Math.floor(Date.now() / 1000) - 259200,
+      file_count: 1,
+      name: 'debian-12.2.0-amd64-DVD-1.iso',
+      primary_mime_type: 'application/x-iso9660-image',
+      total_size: 4073741824,
+      error: 0,
+      error_string: '',
+      eta: -1,
+      is_finished: false,
+      is_stalled: false,
+      labels: [],
+      left_until_done: 1748470361,
+      metadata_percent_complete: 1,
+      peers_connected: 0,
+      peers_getting_from_us: 0,
+      peers_sending_to_us: 0,
+      percent_done: 0.57,
+      queue_position: 3,
+      rate_download: 0,
+      rate_upload: 0,
+      size_when_done: 4073741824,
+      status: STATUS.STOPPED,
+      trackers: [],
+      uploaded_ever: 611061273,
+      upload_ratio: 0.15
+    }),
+    // 种子 5: 正在校验
+    createTorrentRow({
+      id: 5,
+      added_date: Math.floor(Date.now() / 1000) - 1800,
+      file_count: 1,
+      name: 'archlinux-2024.01.01-x86_64.iso',
+      primary_mime_type: 'application/x-iso9660-image',
+      total_size: 805306368,
+      error: 0,
+      error_string: '',
+      eta: -1,
+      is_finished: false,
+      is_stalled: false,
+      labels: [],
+      left_until_done: 225485783,
+      metadata_percent_complete: 1,
+      peers_connected: 0,
+      peers_getting_from_us: 0,
+      peers_sending_to_us: 0,
+      percent_done: 0.72,
+      queue_position: 4,
+      rate_download: 0,
+      rate_upload: 0,
+      recheck_progress: 0.72,
+      size_when_done: 805306368,
+      status: STATUS.CHECK,
+      trackers: [],
+      uploaded_ever: 0,
+      upload_ratio: 0
+    }),
+    // 种子 6: 已完成但暂停
+    createTorrentRow({
+      id: 6,
+      added_date: Math.floor(Date.now() / 1000) - 604800,
+      file_count: 1,
+      name: 'linux-mint-21.2-cinnamon-64bit.iso',
+      primary_mime_type: 'application/x-iso9660-image',
+      total_size: 2684354560,
+      error: 0,
+      error_string: '',
+      eta: -1,
+      is_finished: true,
+      is_stalled: false,
+      labels: [],
+      left_until_done: 0,
+      metadata_percent_complete: 1,
+      peers_connected: 0,
+      peers_getting_from_us: 0,
+      peers_sending_to_us: 0,
+      percent_done: 1,
+      queue_position: 5,
+      rate_download: 0,
+      rate_upload: 0,
+      size_when_done: 2684354560,
+      status: STATUS.STOPPED,
+      trackers: [],
+      uploaded_ever: 2147483648,
+      upload_ratio: 0.8
+    }),
+    // 种子 7: 快下载完成
+    createTorrentRow({
+      id: 7,
+      added_date: Math.floor(Date.now() / 1000) - 7200,
+      file_count: 1,
+      name: 'kali-linux-2024.1-installer-amd64.iso',
+      primary_mime_type: 'application/x-iso9660-image',
+      total_size: 4294967296,
+      error: 0,
+      error_string: '',
+      eta: 180,
+      is_finished: false,
+      is_stalled: false,
+      labels: ['security'],
+      left_until_done: 42949673,
+      metadata_percent_complete: 1,
+      peers_connected: 35,
+      peers_getting_from_us: 0,
+      peers_sending_to_us: 28,
+      percent_done: 0.99,
+      queue_position: 6,
+      rate_download: 2424832,
+      rate_upload: 102400,
+      size_when_done: 4294967296,
+      status: STATUS.DOWNLOAD,
+      trackers: [{ announce: 'http://tracker.security.com/announce', id: 0, scrape: 'http://tracker.security.com/scrape', sitename: 'security', tier: 0 }],
+      uploaded_ever: 429496730,
+      upload_ratio: 0.1
+    }),
+    // 种子 8: 正在做种（高分享率）
+    createTorrentRow({
+      id: 8,
+      added_date: Math.floor(Date.now() / 1000) - 1209600,
+      file_count: 1,
+      name: 'openSUSE-Leap-15.5-DVD-x86_64.iso',
+      primary_mime_type: 'application/x-iso9660-image',
+      total_size: 5368709120,
+      error: 0,
+      error_string: '',
+      eta: -1,
+      is_finished: true,
+      is_stalled: false,
+      labels: [],
+      left_until_done: 0,
+      metadata_percent_complete: 1,
+      peers_connected: 56,
+      peers_getting_from_us: 32,
+      peers_sending_to_us: 0,
+      percent_done: 1,
+      queue_position: 7,
+      rate_download: 0,
+      rate_upload: 3584000,
+      size_when_done: 5368709120,
+      status: STATUS.SEED,
+      trackers: [{ announce: 'http://tracker.opensuse.org/announce', id: 0, scrape: 'http://tracker.opensuse.org/scrape', sitename: 'opensuse', tier: 0 }],
+      uploaded_ever: 30440669824,
+      upload_ratio: 5.67
+    })
+  ];
+
+  // 辅助函数
+  function getField(row, fieldName) {
+    const idx = FIELDS.indexOf(fieldName);
+    return idx >= 0 ? row[idx] : undefined;
+  }
+
+  function setField(row, fieldName, value) {
+    const idx = FIELDS.indexOf(fieldName);
+    if (idx >= 0) row[idx] = value;
+  }
+
+  // ==================== RPC 响应生成 ====================
+
+  function createTorrentGetResponse(params) {
+    const fields = params.fields || FIELDS;
+    const ids = params.ids;
     
-    // 模拟种子数据
-    const mockTorrents = [
-      {
-        id: 1,
-        name: 'ubuntu-22.04.3-desktop-amd64.iso',
-        status: 4, // Downloading
-        statusText: 'Downloading',
-        totalSize: 4823456789,
-        downloaded: 2218790123,
-        uploadRatio: 0.05,
-        percentDone: 0.46,
-        rateDownload: 2621440, // 2.5 MB/s
-        rateUpload: 153600, // 150 KB/s
-        peersConnected: 12,
-        peersTotal: 25,
-        eta: 900, // 15 minutes
-        metadataPercentComplete: 1,
-        files: [],
-        trackers: []
-      },
-      {
-        id: 2,
-        name: 'debian-12.2.0-amd64-DVD-1.iso',
-        status: 6, // Seeding
-        statusText: 'Seeding',
-        totalSize: 4073741824,
-        downloaded: 4073741824,
-        uploadRatio: 2.45,
-        percentDone: 1.0,
-        rateDownload: 0,
-        rateUpload: 870400, // 850 KB/s
-        peersConnected: 8,
-        peersTotal: 15,
-        eta: -1,
-        metadataPercentComplete: 1,
-        files: [],
-        trackers: []
-      },
-      {
-        id: 3,
-        name: 'fedora-workstation-39-1.5.iso',
-        status: 0, // Paused
-        statusText: 'Paused',
-        totalSize: 2254857830,
-        downloaded: 1285271463,
-        uploadRatio: 0.15,
-        percentDone: 0.57,
-        rateDownload: 0,
-        rateUpload: 0,
-        peersConnected: 0,
-        peersTotal: 20,
-        eta: 1800,
-        metadataPercentComplete: 1,
-        files: [],
-        trackers: []
-      },
-      {
-        id: 4,
-        name: 'archlinux-2024.01.01-x86_64.iso',
-        status: 2, // Checking
-        statusText: 'Verifying local data',
-        totalSize: 805306368,
-        downloaded: 805306368,
-        uploadRatio: 0,
-        percentDone: 0.72,
-        rateDownload: 0,
-        rateUpload: 0,
-        peersConnected: 0,
-        peersTotal: 0,
-        eta: -1,
-        metadataPercentComplete: 1,
-        files: [],
-        trackers: []
-      },
-      {
-        id: 5,
-        name: 'linux-mint-21.2-cinnamon-64bit.iso',
-        status: 1, // Queued to check
-        statusText: 'Queued for verification',
-        totalSize: 2684354560,
-        downloaded: 2684354560,
-        uploadRatio: 0.8,
-        percentDone: 1.0,
-        rateDownload: 0,
-        rateUpload: 0,
-        peersConnected: 0,
-        peersTotal: 0,
-        eta: -1,
-        metadataPercentComplete: 1,
-        files: [],
-        trackers: []
-      },
-      {
-        id: 6,
-        name: 'kali-linux-2024.1-installer-amd64.iso',
-        status: 4, // Downloading
-        statusText: 'Downloading',
-        totalSize: 4294967296,
-        downloaded: 3865470566,
-        uploadRatio: 0.1,
-        percentDone: 0.90,
-        rateDownload: 5242880, // 5 MB/s
-        rateUpload: 102400, // 100 KB/s
-        peersConnected: 35,
-        peersTotal: 50,
-        eta: 82, // 1 min 22 sec
-        metadataPercentComplete: 1,
-        files: [],
-        trackers: []
-      },
-      {
-        id: 7,
-        name: 'openSUSE-Leap-15.5-DVD-x86_64.iso',
-        status: 6, // Seeding
-        statusText: 'Seeding',
-        totalSize: 5368709120,
-        downloaded: 5368709120,
-        uploadRatio: 5.67,
-        percentDone: 1.0,
-        rateDownload: 0,
-        rateUpload: 2048000, // 2 MB/s
-        peersConnected: 25,
-        peersTotal: 40,
-        eta: -1,
-        metadataPercentComplete: 1,
-        files: [],
-        trackers: []
-      },
-      {
-        id: 8,
-        name: 'manjaro-kde-23.1.3-240113-linux66.iso',
-        status: 0, // Paused
-        statusText: 'Paused',
-        totalSize: 3758096384,
-        downloaded: 3758096384,
-        uploadRatio: 1.23,
-        percentDone: 1.0,
-        rateDownload: 0,
-        rateUpload: 0,
-        peersConnected: 0,
-        peersTotal: 18,
-        eta: -1,
-        metadataPercentComplete: 1,
-        files: [],
-        trackers: []
-      }
-    ];
-
-    // 格式化字节数
-    function formatBytes(bytes) {
-      if (bytes === 0) return '0 B';
-      const k = 1024;
-      const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
-      const i = Math.floor(Math.log(bytes) / Math.log(k));
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
-    }
-
-    // 格式化速度
-    function formatSpeed(bytesPerSecond) {
-      if (bytesPerSecond === 0) return '0 kB/s';
-      return formatBytes(bytesPerSecond) + '/s';
-    }
-
-    // 格式化时间（与效果图一致：整分钟时显示 “N min”，避免 “15m 0s”）
-    function formatTime(seconds) {
-      if (seconds < 0) return '∞';
-      if (seconds === 0) return 'Done';
-
-      const hours = Math.floor(seconds / 3600);
-      const minutes = Math.floor((seconds % 3600) / 60);
-      const secs = seconds % 60;
-
-      if (hours > 0) {
-        return `${hours}h ${minutes}m`;
-      }
-      if (minutes > 0) {
-        return secs > 0 ? `${minutes}m ${secs}s` : `${minutes} min`;
-      }
-      return `${secs}s`;
-    }
-
-    // 获取状态图标类名
-    function getStatusClass(status) {
-      switch (status) {
-        case 4: return 'downloading';
-        case 6: return 'seeding';
-        case 0: return 'paused';
-        case 2: return 'checking';
-        case 1: return 'queued';
-        default: return 'unknown';
+    let filteredRows = mockTorrentsTable.slice(1);
+    if (ids && ids !== 'recently_active') {
+      if (Array.isArray(ids)) {
+        filteredRows = filteredRows.filter(row => ids.includes(getField(row, 'id')));
       }
     }
 
-    // 获取状态图标
-    function getStatusIcon(status) {
-      switch (status) {
-        case 4: // Downloading
-          return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
-        case 6: // Seeding — 与 NewDesign.pen 一致（check-circle）
-          return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
-        case 0: // Paused
-          return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`;
-        case 2: // Checking
-          return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`;
-        default:
-          return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>`;
-      }
+    const resultFields = fields.length > 0 ? fields : FIELDS;
+    const result = [resultFields];
+    
+    for (const row of filteredRows) {
+      const newRow = resultFields.map(field => getField(row, field));
+      result.push(newRow);
     }
 
-    // 渲染种子列表
-    function renderTorrents() {
-      const torrentList = document.getElementById('torrent-list');
-      if (!torrentList) {
-        console.log('[MockData] Torrent list element not found, retrying...');
-        setTimeout(renderTorrents, 100);
-        return;
+    return {
+      result: {
+        torrents: result,
+        removed: []
       }
-
-      // 清空现有内容
-      torrentList.innerHTML = '';
-
-      // 渲染每个种子
-      mockTorrents.forEach(torrent => {
-        const li = document.createElement('li');
-        li.className = `torrent ${getStatusClass(torrent.status)}`;
-        li.dataset.id = torrent.id;
-
-        const percentDone = Math.round(torrent.percentDone * 100);
-        const downloadedFormatted = formatBytes(torrent.downloaded);
-        const totalFormatted = formatBytes(torrent.totalSize);
-        const rateDownFormatted = formatSpeed(torrent.rateDownload);
-        const rateUpFormatted = formatSpeed(torrent.rateUpload);
-        const etaFormatted = formatTime(torrent.eta);
-
-        // 根据状态显示不同信息
-        let badgeText = percentDone + '%';
-        let badgeClass = '';
-        if (torrent.status === 6) {
-          badgeText = 'Seeding';
-          badgeClass = 'seeding';
-        } else if (torrent.status === 0) {
-          badgeText = 'Paused';
-          badgeClass = 'paused';
-        } else if (torrent.status === 2) {
-          badgeText = 'Checking';
-          badgeClass = 'checking';
-        }
-
-        // 构建速度显示
-        let speedDisplay = '';
-        if (torrent.status === 4) {
-          speedDisplay = `↓ ${rateDownFormatted}  ↑ ${rateUpFormatted}`;
-        } else if (torrent.status === 6) {
-          speedDisplay = `↑ ${rateUpFormatted}`;
-        }
-
-        // 构建 peers 显示
-        let peersDisplay = '';
-        if (torrent.peersConnected > 0) {
-          peersDisplay = `${torrent.peersConnected} of ${torrent.peersTotal} peers`;
-        }
-
-        // 构建 ETA 显示
-        let etaDisplay = '';
-        if (torrent.status === 4 && torrent.eta > 0) {
-          etaDisplay = `
-            <div class="eta">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              ${etaFormatted} remaining
-            </div>
-          `;
-        } else if (torrent.status === 6) {
-          etaDisplay = `
-            <div class="eta">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
-              Ratio: ${torrent.uploadRatio.toFixed(2)}
-            </div>
-          `;
-        }
-
-        li.innerHTML = `
-          <div class="icon">${getStatusIcon(torrent.status)}</div>
-          <div class="torrent-info">
-            <div class="torrent-name">${torrent.name}</div>
-            <div class="torrent-meta">${downloadedFormatted} of ${totalFormatted}</div>
-          </div>
-          <div class="percent-done ${badgeClass}">${badgeText}</div>
-          <div class="torrent-progress-bar">
-            <div class="progress" style="width: ${percentDone}%"></div>
-          </div>
-          <div class="torrent-footer">
-            <div class="torrent-stats-left">
-              ${peersDisplay ? `<span class="peers">${peersDisplay}</span>` : ''}
-              ${speedDisplay ? `<span class="speed">${speedDisplay}</span>` : ''}
-            </div>
-            ${etaDisplay}
-          </div>
-        `;
-
-        torrentList.appendChild(li);
-      });
-
-      // 更新速度显示
-      updateSpeedDisplay();
-      
-      console.log(`[MockData] Rendered ${mockTorrents.length} mock torrents`);
-    }
-
-    // 更新速度显示
-    function updateSpeedDisplay() {
-      const speedDown = document.getElementById('speed-down');
-      const speedUp = document.getElementById('speed-up');
-      
-      if (speedDown && speedUp) {
-        let totalDown = 0;
-        let totalUp = 0;
-        
-        mockTorrents.forEach(t => {
-          totalDown += t.rateDownload;
-          totalUp += t.rateUpload;
-        });
-        
-        speedDown.textContent = formatSpeed(totalDown);
-        speedUp.textContent = formatSpeed(totalUp);
-      }
-    }
-
-    // 延迟渲染，确保页面其他元素已加载
-    setTimeout(renderTorrents, 500);
-
-    // 模拟实时更新
-    if (CONFIG.enableRealtimeUpdate) {
-    setInterval(() => {
-      // 随机更新一些种子的速度
-      mockTorrents.forEach(torrent => {
-        if (torrent.status === 4) { // Downloading
-          torrent.rateDownload = Math.max(0, torrent.rateDownload + (Math.random() - 0.5) * 500000);
-          torrent.rateUpload = Math.max(0, torrent.rateUpload + (Math.random() - 0.5) * 50000);
-          torrent.downloaded = Math.min(torrent.totalSize, torrent.downloaded + torrent.rateDownload / 10);
-          torrent.percentDone = torrent.downloaded / torrent.totalSize;
-          
-          // 下载完成
-          if (torrent.percentDone >= 1) {
-            torrent.percentDone = 1;
-            torrent.status = 6; // Seeding
-            torrent.statusText = 'Seeding';
-            torrent.downloaded = torrent.totalSize;
-          }
-        } else if (torrent.status === 6) { // Seeding
-          torrent.rateUpload = Math.max(0, torrent.rateUpload + (Math.random() - 0.5) * 100000);
-          torrent.uploadRatio += torrent.rateUpload / torrent.totalSize / 100;
-        }
-      });
-      
-      updateSpeedDisplay();
-      
-      // 每5秒重新渲染一次列表
-      if (Math.random() < 0.1) {
-        renderTorrents();
-      }
-    }, 1000);
-
-    }
-    console.log('[MockData] Real-time update:', CONFIG.enableRealtimeUpdate ? 'ENABLED' : 'DISABLED');
-    console.log('[MockData] Mock data generator initialized successfully');
+    };
   }
+
+  function createSessionGetResponse() {
+    return {
+      result: {
+        'alt-speed-down': 50,
+        'alt-speed-enabled': false,
+        'alt-speed-time-begin': 540,
+        'alt-speed-time-day': 127,
+        'alt-speed-time-enabled': false,
+        'alt-speed-time-end': 1020,
+        'alt-speed-up': 50,
+        'blocklist-enabled': false,
+        'blocklist-size': 0,
+        'cache-size-mb': 4,
+        'config-dir': '/config',
+        'dht-enabled': true,
+        'download-dir': '/downloads',
+        'download-dir-free-space': 107374182400,
+        'download-queue-enabled': true,
+        'download-queue-size': 5,
+        'encryption': 'preferred',
+        'idle-seeding-limit': 30,
+        'idle-seeding-limit-enabled': false,
+        'incomplete-dir': '/downloads/incomplete',
+        'incomplete-dir-enabled': false,
+        'lpd-enabled': false,
+        'peer-limit-global': 200,
+        'peer-limit-per-torrent': 50,
+        'peer-port': 51413,
+        'peer-port-random-on-start': false,
+        'pex-enabled': true,
+        'port-forwarding-enabled': true,
+        'queue-stalled-enabled': true,
+        'queue-stalled-minutes': 30,
+        'rename-partial-files': true,
+        'rpc-version': 16,
+        'rpc-version-minimum': 14,
+        'script-torrent-done-enabled': false,
+        'script-torrent-done-filename': '',
+        'seed-queue-enabled': false,
+        'seed-queue-size': 10,
+        'seedRatioLimit': 2,
+        'seedRatioLimited': true,
+        'speed-limit-down': 100,
+        'speed-limit-down-enabled': false,
+        'speed-limit-up': 100,
+        'speed-limit-up-enabled': false,
+        'start-added-torrents': true,
+        'trash-original-torrent-files': false,
+        'units': {
+          'memory-bytes': 1024,
+          'memory-units': ['KiB', 'MiB', 'GiB', 'TiB'],
+          'size-bytes': 1000,
+          'size-units': ['kB', 'MB', 'GB', 'TB'],
+          'speed-bytes': 1000,
+          'speed-units': ['kB/s', 'MB/s', 'GB/s', 'TB/s']
+        },
+        'utp-enabled': true,
+        'version': '4.0.5'
+      }
+    };
+  }
+
+  function createSessionStatsResponse() {
+    let totalDown = 0;
+    let totalUp = 0;
+    for (let i = 1; i < mockTorrentsTable.length; i++) {
+      const row = mockTorrentsTable[i];
+      totalDown += getField(row, 'rate_download');
+      totalUp += getField(row, 'rate_upload');
+    }
+
+    return {
+      result: {
+        'activeTorrentCount': mockTorrentsTable.length - 1,
+        'downloadSpeed': totalDown,
+        'pausedTorrentCount': 0,
+        'torrentCount': mockTorrentsTable.length - 1,
+        'uploadSpeed': totalUp
+      }
+    };
+  }
+
+  function createMockResponse(method, params) {
+    switch (method) {
+      case 'torrent_get':
+        return createTorrentGetResponse(params);
+      case 'session_get':
+        return createSessionGetResponse();
+      case 'session_stats':
+        return createSessionStatsResponse();
+      default:
+        return { result: {} };
+    }
+  }
+
+  // ==================== Fetch 拦截 ====================
+  
+  console.log('[MockData] Initializing mock data...');
+  
+  const originalFetch = window.fetch.bind(window);
+  
+  window.fetch = function(input, init) {
+    let url;
+    
+    if (typeof input === 'string') {
+      url = input;
+    } else if (input instanceof Request) {
+      url = input.url;
+    } else {
+      url = String(input);
+    }
+    
+    // 检查是否是 RPC 请求 - 匹配包含 /rpc 的 URL
+    if (url && url.includes('/rpc')) {
+      console.log('[MockData] Intercepted RPC request:', url);
+      
+      // 获取请求体
+      let body = null;
+      if (init && init.body) {
+        body = init.body;
+      }
+      
+      if (body && typeof body === 'string') {
+        try {
+          const parsedData = JSON.parse(body);
+          const method = parsedData.method;
+          const params = parsedData.params || {};
+          
+          console.log('[MockData] RPC method:', method);
+          
+          // 创建模拟响应
+          const mockResponse = createMockResponse(method, params);
+          
+          console.log('[MockData] Returning mock response for', method);
+          return Promise.resolve(new Response(JSON.stringify(mockResponse), {
+            status: 200,
+            statusText: 'OK',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }));
+        } catch (e) {
+          console.error('[MockData] Error parsing request:', e);
+        }
+      }
+    }
+    
+    // 非 RPC 请求，使用原始的 fetch
+    return originalFetch.apply(this, arguments);
+  };
+
+  console.log('[MockData] Fetch interceptor installed');
+
+  // ==================== 实时更新 ====================
+  
+  if (CONFIG.enableRealtimeUpdate) {
+    setInterval(() => {
+      for (let i = 1; i < mockTorrentsTable.length; i++) {
+        const row = mockTorrentsTable[i];
+        const status = getField(row, 'status');
+        
+        if (status === STATUS.DOWNLOAD) {
+          let rateDownload = getField(row, 'rate_download');
+          let rateUpload = getField(row, 'rate_upload');
+          let leftUntilDone = getField(row, 'left_until_done');
+          let sizeWhenDone = getField(row, 'size_when_done');
+          let percentDone = getField(row, 'percent_done');
+          
+          rateDownload = Math.max(0, rateDownload + (Math.random() - 0.5) * 500000);
+          rateUpload = Math.max(0, rateUpload + (Math.random() - 0.5) * 50000);
+          
+          const downloaded = (sizeWhenDone - leftUntilDone) + rateDownload / 10;
+          leftUntilDone = Math.max(0, sizeWhenDone - downloaded);
+          percentDone = 1 - (leftUntilDone / sizeWhenDone);
+          
+          setField(row, 'rate_download', Math.floor(rateDownload));
+          setField(row, 'rate_upload', Math.floor(rateUpload));
+          setField(row, 'left_until_done', Math.floor(leftUntilDone));
+          setField(row, 'percent_done', percentDone);
+          
+          if (rateDownload > 0 && leftUntilDone > 0) {
+            setField(row, 'eta', Math.floor(leftUntilDone / rateDownload));
+          }
+          
+          if (percentDone >= 0.9999) {
+            setField(row, 'percent_done', 1);
+            setField(row, 'status', STATUS.SEED);
+            setField(row, 'left_until_done', 0);
+            setField(row, 'is_finished', true);
+            setField(row, 'rate_download', 0);
+            setField(row, 'eta', -1);
+          }
+        } else if (status === STATUS.SEED) {
+          let rateUpload = getField(row, 'rate_upload');
+          let uploadRatio = getField(row, 'upload_ratio');
+          let sizeWhenDone = getField(row, 'size_when_done');
+          let uploadedEver = getField(row, 'uploaded_ever');
+          
+          rateUpload = Math.max(0, rateUpload + (Math.random() - 0.5) * 100000);
+          uploadedEver += Math.floor(rateUpload / 10);
+          uploadRatio = uploadedEver / sizeWhenDone;
+          
+          setField(row, 'rate_upload', Math.floor(rateUpload));
+          setField(row, 'uploaded_ever', uploadedEver);
+          setField(row, 'upload_ratio', uploadRatio);
+        }
+      }
+    }, CONFIG.updateInterval);
+  }
+
+  // ==================== 暴露 API ====================
+  
+  window.mockTorrents = {
+    getData: () => mockTorrentsTable,
+    getFields: () => FIELDS,
+    getRow: (id) => mockTorrentsTable.find(row => getField(row, 'id') === id),
+    updateRow: (id, data) => {
+      const row = mockTorrentsTable.find(row => getField(row, 'id') === id);
+      if (row) {
+        Object.entries(data).forEach(([key, value]) => setField(row, key, value));
+      }
+    },
+    STATUS
+  };
+
+  console.log('[MockData] Mock data initialized successfully');
+  console.log('[MockData] Torrent count:', mockTorrentsTable.length - 1);
+  console.log('[MockData] Real-time update:', CONFIG.enableRealtimeUpdate ? 'ENABLED' : 'DISABLED');
+  console.log('[MockData] Access via window.mockTorrents');
 })();

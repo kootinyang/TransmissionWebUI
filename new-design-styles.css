@@ -1,6 +1,7 @@
 /**
  * New Design Styles for Transmission Web Interface
- * Tokens aligned with NewDesign.pen (Dark)
+ * 适配 transmission-app.js 的 DOM 结构和网格布局
+ * Design: NewDesign.pen (Dark Theme)
  */
 
 /* ============================================
@@ -47,13 +48,12 @@
   --statusbar-padding: 16px 24px;
   --statusbar-gap: 16px;
 
-  /* Card variables (torrent list) — pen: shadow y=2 blur=4 #0000000d */
+  /* Card variables (torrent list) */
   --card-radius: 12px;
   --card-padding: 20px;
   --card-gap: 16px;
   --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   --card-border: 1px solid var(--border);
-  --torrent-row-inner-gap: 4px;
 
   /* Button variables */
   --button-height: 40px;
@@ -64,6 +64,10 @@
   /* Progress bar */
   --progress-height: 8px;
   --progress-radius: 999px;
+  
+  /* Icon sizes */
+  --icon-size: 48px;
+  --icon-size-compact: 20px;
 }
 
 /* ============================================
@@ -92,7 +96,7 @@ body,
   align-items: center;
 }
 
-/* Toolbar buttons - Base styles (pen: 40px height, radius 6, gap 8) */
+/* Toolbar buttons */
 #mainwin-toolbar button,
 .mainwin-toolbar button {
   height: var(--button-height) !important;
@@ -112,7 +116,7 @@ body,
   margin-right: 0 !important;
 }
 
-/* Primary — Open (pen: --primary on --card toolbar) */
+/* Primary — Open */
 #toolbar-open {
   background-color: var(--primary) !important;
   color: var(--primary-foreground) !important;
@@ -122,7 +126,7 @@ body,
   background-color: #e67700 !important;
 }
 
-/* Destructive — Delete (pen dark: --destructive) */
+/* Destructive — Delete */
 #toolbar-delete {
   background-color: var(--destructive) !important;
   color: var(--destructive-foreground) !important;
@@ -154,7 +158,7 @@ body,
   background-color: var(--secondary) !important;
 }
 
-/* Overflow — same as pen NitJk (40×40, secondary fill) */
+/* Overflow Button */
 #toolbar-overflow {
   width: 40px !important;
   height: 40px !important;
@@ -164,17 +168,6 @@ body,
   color: transparent !important;
   position: relative;
   overflow: hidden;
-  margin-right: 0 !important;
-}
-
-/* Ensure toolbar/statusbar right edge lines up with torrent cards */
-#mainwin-statusbar,
-.mainwin-statusbar {
-  box-sizing: border-box !important;
-  padding: var(--statusbar-padding) !important;
-}
-
-#mainwin-statusbar > #turtle {
   margin-right: 0 !important;
 }
 
@@ -225,7 +218,7 @@ body,
   font-size: 14px;
 }
 
-/* Filter dropdowns (pen: 140×40, stroke border, padding 10/12) */
+/* Filter dropdowns */
 #filter-mode,
 #filter-tracker {
   width: 140px;
@@ -245,7 +238,7 @@ body,
   background-position: right 10px center;
 }
 
-/* Search box (pen: 240×40) */
+/* Search box */
 #torrent-search {
   width: 240px !important;
   max-width: 240px !important;
@@ -266,7 +259,7 @@ body,
   color: var(--muted-foreground);
 }
 
-/* Speed containers (pen: icon gap 8 inside each speed row) */
+/* Speed containers */
 .speed-container {
   display: flex;
   align-items: center;
@@ -284,7 +277,6 @@ body,
   min-width: 80px;
 }
 
-/* Speed icons — pen: color-info-foreground / color-success-foreground */
 #speed-down::before {
   content: '';
   width: 16px;
@@ -301,7 +293,6 @@ body,
   background-size: contain;
 }
 
-/* Default speed display when empty */
 #speed-down:empty::after {
   content: '0 kB/s';
   color: var(--muted-foreground);
@@ -312,7 +303,7 @@ body,
   color: var(--muted-foreground);
 }
 
-/* Turtle button — pen: 40×40, card fill, 1px border */
+/* Turtle button */
 #turtle {
   width: 40px !important;
   height: 40px !important;
@@ -340,20 +331,10 @@ body,
   background-position: center;
 }
 
-/* Override legacy positioning so turtle icon is truly centered */
-#mainwin-statusbar #turtle::before {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  padding: 0 !important;
-}
-
 #turtle:hover {
   background-color: var(--secondary) !important;
 }
 
-/* App toggles class `alt-speed-enabled` (not speed-enabled) */
 #turtle.alt-speed-enabled {
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
@@ -371,7 +352,7 @@ body,
 }
 
 /* ============================================
-   Main workarea (scroll parent may show bar; hide for clean edge)
+   Main Workarea & Torrent Container
    ============================================ */
 #mainwin-workarea {
   scrollbar-width: none;
@@ -384,20 +365,15 @@ body,
   height: 0;
 }
 
-/* ============================================
-   Torrent List Styles
-   ============================================ */
 #torrent-container {
-  /* Right edge of cards aligns with #turtle (same as left/right padding on statusbar: 24px) */
-  padding: 24px 24px 24px 24px;
+  padding: 24px;
   background-color: var(--background);
-  /* Hide scrollbar but keep scrolling (wheel / touch / keyboard) */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE / legacy Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 #torrent-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+  display: none;
   width: 0;
   height: 0;
 }
@@ -411,29 +387,22 @@ body,
   padding: 0;
 }
 
-/* Torrent item/card — chrome for all rows; grid only when mock DOM has .torrent-info */
+/* ============================================
+   Torrent Item - Card Style
+   适配 transmission-app.js 的网格布局
+   ============================================ */
+
+/* Base torrent card - override original styles */
 #torrent-list .torrent {
-  background-color: var(--card);
+  background-color: var(--card) !important;
   border-radius: var(--card-radius);
-  border: var(--card-border);
+  border: var(--card-border) !important;
   box-shadow: var(--card-shadow);
   box-sizing: border-box;
-  padding: var(--card-padding);
+  padding: var(--card-padding) !important;
   margin: 0;
   position: relative;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-/* NewDesign.pen layout: header row (icon + title + badge) → progress → footer */
-#torrent-list .torrent:has(.torrent-info) {
-  display: grid;
-  grid-template-columns: 48px minmax(0, 1fr) auto;
-  grid-template-rows: auto auto auto;
-  grid-template-areas:
-    "icon info badge"
-    "progress progress progress"
-    "footer footer footer";
-  gap: var(--card-gap);
   align-items: center;
 }
 
@@ -444,199 +413,307 @@ body,
 
 #torrent-list .torrent:nth-child(2n),
 #torrent-list .torrent:nth-child(odd) {
-  background-color: var(--card);
+  background-color: var(--card) !important;
 }
 
-/* Status icon — pen: 48×48, radius 10, centered 24px lucide */
+/* Selected state */
+#torrent-list .torrent.selected {
+  background-color: var(--card) !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 1px var(--primary), 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Paused state - use muted colors */
+#torrent-list .torrent.paused {
+  color: var(--muted-foreground);
+}
+
+#torrent-list .torrent.paused:not(.selected) .torrent-progress-bar {
+  color: var(--muted-foreground);
+}
+
+/* ============================================
+   Status Icon
+   ============================================ */
 #torrent-list .torrent .icon {
-  grid-area: icon;
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-  background-color: var(--secondary);
+  background-color: var(--secondary) !important;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--muted-foreground);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  /* Remove mask-image from original */
   -webkit-mask-image: none !important;
   mask-image: none !important;
+  position: relative;
 }
 
-#torrent-list .torrent .icon svg {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
+/* Full mode icon (48x48) */
+#torrent-list .torrent:not(.compact) .icon {
+  width: 48px !important;
+  height: 48px !important;
+  background-size: 24px, 12px;
 }
 
-/* Status icons — pen: color-info / color-success / muted */
-#torrent-list .torrent.downloading .icon {
-  background-color: var(--color-info);
+/* Compact mode icon (20x20) */
+#torrent-list .torrent.compact .icon {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 6px;
+  background-size: 16px, 8px;
+}
+
+/* Status-based icon colors */
+
+/* Downloading - Blue/Info (check if progress bar has leech class) */
+#torrent-list .torrent:has(.torrent-progress-bar.leech) .icon,
+#torrent-list .torrent[data-icon-mime-type="video"] .icon {
+  background-color: var(--color-info) !important;
   color: var(--color-info-foreground);
 }
 
-#torrent-list .torrent.seeding .icon {
-  background-color: var(--color-success);
+/* Seeding - Green/Success (check if progress bar has seed class) */
+#torrent-list .torrent:has(.torrent-progress-bar.seed) .icon {
+  background-color: var(--color-success) !important;
   color: var(--color-success-foreground);
 }
 
+/* Paused/Stopped - Gray/Muted */
 #torrent-list .torrent.paused .icon,
-#torrent-list .torrent.queued .icon {
-  background-color: var(--muted);
+#torrent-list .torrent:has(.torrent-progress-bar.paused) .icon {
+  background-color: var(--muted) !important;
   color: var(--muted-foreground);
 }
 
-#torrent-list .torrent.checking .icon {
-  background-color: var(--color-warning);
+/* Checking/Verifying - Orange/Warning (check if progress bar has verify class) */
+#torrent-list .torrent:has(.torrent-progress-bar.verify) .icon {
+  background-color: var(--color-warning) !important;
   color: var(--color-warning-foreground);
 }
 
-/* Title block — pen: vertical gap 4 between name + meta */
-#torrent-list .torrent .torrent-info {
-  grid-area: info;
-  display: flex;
-  flex-direction: column;
-  gap: var(--torrent-row-inner-gap);
-  min-width: 0;
-  justify-content: center;
+/* Magnet/Metadata - Orange (check if progress bar has magnet class) */
+#torrent-list .torrent:has(.torrent-progress-bar.magnet) .icon {
+  background-color: var(--color-warning) !important;
+  color: var(--color-warning-foreground);
 }
 
+/* Selected state icon */
+#torrent-list .torrent.selected .icon {
+  background-color: var(--secondary) !important;
+  color: var(--foreground);
+}
+
+/* ============================================
+   Torrent Name
+   ============================================ */
 #torrent-list .torrent .torrent-name {
   font-size: 16px;
   font-weight: 600;
   color: var(--foreground);
   line-height: 1.35;
   letter-spacing: -0.02em;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 2px;
+  margin-top: 2px;
 }
 
-#torrent-list .torrent .torrent-meta {
+#torrent-list .torrent .torrent-name:not(.compact) {
+  font-weight: 600;
+}
+
+/* Compact mode name */
+#torrent-list .torrent.compact .torrent-name {
   font-size: 14px;
-  font-weight: 400;
-  line-height: 1.45;
-  color: var(--muted-foreground);
+  font-weight: 500;
 }
 
-/* Percent / status pill — pen: padding 6×12, radius pill, 13 semibold */
-#torrent-list .torrent .percent-done {
-  grid-area: badge;
-  align-self: center;
-  justify-self: end;
+/* ============================================
+   Torrent Labels
+   ============================================ */
+#torrent-list .torrent .torrent-labels {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted-foreground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  padding: 1px 0;
+}
+
+/* Individual label pill */
+#torrent-list .torrent .torrent-label {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-height: 28px;
-  padding: 6px 12px;
-  background-color: var(--primary);
-  color: var(--primary-foreground);
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.2;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-#torrent-list .torrent.seeding .percent-done {
-  background-color: var(--color-success);
-  color: var(--color-success-foreground);
-}
-
-#torrent-list .torrent.paused .percent-done {
-  background-color: var(--muted);
-  color: var(--muted-foreground);
-}
-
-#torrent-list .torrent.checking .percent-done {
-  background-color: var(--color-warning);
-  color: var(--color-warning-foreground);
-}
-
-/* Progress track — pen: height 8, track fill secondary, pill caps */
-#torrent-list .torrent .torrent-progress-bar {
-  grid-area: progress;
-  width: 100%;
-  min-height: var(--progress-height);
-  height: var(--progress-height);
+  padding: 2px 8px;
+  margin: 0 2px;
   background-color: var(--secondary);
-  border-radius: var(--progress-radius);
+  color: var(--muted-foreground);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border: none;
+}
+
+/* ============================================
+   Progress Details (progress-text)
+   ============================================ */
+#torrent-list .torrent .torrent-progress-details {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted-foreground);
+  line-height: 1.45;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Compact mode - smaller font */
+#torrent-list .torrent.compact .torrent-progress-details {
+  font-size: 12px;
+}
+
+/* ============================================
+   Peer Details
+   ============================================ */
+#torrent-list .torrent .torrent-peer-details {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted-foreground);
+  line-height: 1.45;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Compact mode peer details */
+#torrent-list .torrent.compact .torrent-peer-details {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* Error state */
+#torrent-list .torrent .torrent-peer-details.error,
+#torrent-list .torrent .torrent-progress-details.error {
+  color: var(--destructive);
+}
+
+/* ============================================
+   Progress Bar - New Design Style
+   ============================================ */
+#torrent-list .torrent .torrent-progress-bar {
+  font-size: 14px;
   position: relative;
+  border: none !important;
+  border-radius: var(--progress-radius) !important;
+  background-color: var(--secondary);
+  height: var(--progress-height) !important;
+  min-height: var(--progress-height) !important;
+  overflow: hidden;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
-/* Progress fill */
-#torrent-list .torrent .torrent-progress-bar .progress {
+#torrent-list .torrent .torrent-progress-bar:not(.compact) {
+  margin: 8px 0;
+}
+
+#torrent-list .torrent .torrent-progress-bar.compact {
+  min-width: 60px;
+  height: 4px !important;
+  min-height: 4px !important;
+}
+
+/* Progress bar fill - use ::before for the filled part */
+#torrent-list .torrent .torrent-progress-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
-  min-width: 0;
-  background-color: var(--color-info-foreground);
+  width: var(--progress, 0%);
   border-radius: var(--progress-radius);
   transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+  clip-path: none !important;
 }
 
-#torrent-list .torrent.seeding .torrent-progress-bar .progress {
+/* Remove original ::after content styling */
+#torrent-list .torrent .torrent-progress-bar::after {
+  display: none !important;
+}
+
+/* Progress bar states - classes are on the progress bar element itself */
+
+/* Downloading - Blue */
+#torrent-list .torrent .torrent-progress-bar.leech::before {
+  background-color: var(--color-info-foreground);
+}
+
+/* Seeding - Green */
+#torrent-list .torrent .torrent-progress-bar.seed::before {
   background-color: var(--color-success-foreground);
 }
 
-#torrent-list .torrent.paused .torrent-progress-bar .progress {
+/* Paused - Gray */
+#torrent-list .torrent .torrent-progress-bar.paused::before {
   background-color: var(--muted-foreground);
 }
 
-#torrent-list .torrent.checking .torrent-progress-bar .progress {
+/* Checking - Orange */
+#torrent-list .torrent .torrent-progress-bar.verify::before {
   background-color: var(--color-warning-foreground);
 }
 
-/* Footer — pen: space-between, left stats gap 16, right ETA icon+text gap 6, 13 regular */
-#torrent-list .torrent .torrent-footer {
-  grid-area: footer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1.45;
-  color: var(--muted-foreground);
+/* Queued states */
+#torrent-list .torrent .torrent-progress-bar.leech.queued::before,
+#torrent-list .torrent .torrent-progress-bar.seed.queued::before {
+  background-color: var(--muted-foreground);
 }
 
-#torrent-list .torrent .torrent-stats-left {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px;
-  row-gap: 6px;
-  min-width: 0;
+/* Magnet/metadata downloading */
+#torrent-list .torrent .torrent-progress-bar.magnet::before {
+  background-color: var(--color-warning-foreground);
 }
 
-#torrent-list .torrent .peers,
-#torrent-list .torrent .speed {
-  color: var(--muted-foreground);
-  font-variant-numeric: tabular-nums;
+/* ============================================
+   Full Mode Layout (not compact)
+   Original: icon | name | labels
+             icon | progress-text | progress-text
+             icon | progressbar | progressbar
+             icon | peers | peers
+   ============================================ */
+#torrent-list .torrent:not(.compact) {
+  --icon-size: 48px;
+  grid-column-gap: 16px;
+  grid-row-gap: 4px;
+  grid-template-areas:
+    "icon name labels"
+    "icon progress-text progress-text"
+    "icon progressbar progressbar"
+    "icon peers peers" !important;
+  grid-template-columns: 48px auto 1fr !important;
+  padding: 20px !important;
 }
 
-#torrent-list .torrent .speed {
-  letter-spacing: 0.01em;
+/* ============================================
+   Compact Mode Layout
+   Original: icon | name | labels | peers | progressbar
+   ============================================ */
+#torrent-list .torrent.compact {
+  --icon-size: 20px;
+  grid-template-areas: "icon name labels peers progressbar" !important;
+  grid-template-columns: calc(var(--icon-size) + 10px) auto 1fr auto auto !important;
+  padding: 12px 16px !important;
 }
 
-#torrent-list .torrent .eta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-  color: var(--muted-foreground);
-  font-variant-numeric: tabular-nums;
-}
-
-#torrent-list .torrent .eta svg {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-  opacity: 0.95;
+#torrent-list .torrent.compact>* {
+  margin: 0;
 }
 
 /* ============================================
@@ -689,5 +766,16 @@ body,
   #filter-mode,
   #filter-tracker {
     width: 100px;
+  }
+
+  #torrent-list .torrent:not(.compact) {
+    --icon-size: 40px;
+    grid-template-columns: 40px auto 1fr !important;
+    padding: 16px !important;
+  }
+
+  #torrent-list .torrent:not(.compact) .icon {
+    width: 40px !important;
+    height: 40px !important;
   }
 }
