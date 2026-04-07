@@ -4,8 +4,8 @@
     {
       "type": "frame",
       "id": "FKnyf",
-      "x": 100,
-      "y": 100,
+      "x": 0,
+      "y": 0,
       "name": "Transmission - Main Page",
       "theme": {
         "Mode": "Dark"
@@ -1140,8 +1140,8 @@
     {
       "type": "frame",
       "id": "eLAzI",
-      "x": 1350,
-      "y": 100,
+      "x": 0,
+      "y": 900,
       "name": "Inspector Panel",
       "theme": {
         "Mode": "Dark"
