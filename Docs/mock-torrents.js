@@ -68,6 +68,16 @@
   ];
 
   // 状态常量（与 transmission-app.js 一致）
+  // CSS 类名映射：
+  // STOPPED(0) -> .paused (灰色)
+  // CHECK_WAIT(1) -> .verify.queued (灰色)
+  // CHECK(2) -> .verify (橙色)
+  // DOWNLOAD_WAIT(3) -> .leech.queued (灰色)
+  // DOWNLOAD(4) -> .leech (蓝紫色)
+  // SEED_WAIT(5) -> .seed.queued (灰色)
+  // SEED(6) -> .seed (绿色)
+  // error != 0 -> .error (红色)
+  // metadata_percent_complete < 1 -> .magnet (橙色)
   const STATUS = {
     STOPPED: 0,        // 暂停
     CHECK_WAIT: 1,     // 等待校验
@@ -76,6 +86,14 @@
     DOWNLOAD: 4,       // 正在下载
     SEED_WAIT: 5,      // 等待做种
     SEED: 6            // 正在做种
+  };
+  
+  // 错误码常量
+  const ERROR = {
+    NONE: 0,              // 无错误
+    TRACKER_WARNING: 1,   // Tracker 警告
+    TRACKER_ERROR: 2,     // Tracker 错误
+    LOCAL_ERROR: 3        // 本地错误
   };
 
   // 创建种子数据行
@@ -360,6 +378,123 @@
       trackers: [{ announce: 'http://tracker.opensuse.org/announce', id: 0, scrape: 'http://tracker.opensuse.org/scrape', sitename: 'opensuse', tier: 0 }],
       uploaded_ever: 30440669824,
       upload_ratio: 5.67
+    }),
+    // 种子 9: Tracker 错误（下载中但有错误）
+    createTorrentRow({
+      id: 9,
+      added_date: Math.floor(Date.now() / 1000) - 86400,
+      file_count: 1,
+      name: 'Error Example - Tracker Returned Error',
+      primary_mime_type: 'video/x-matroska',
+      total_size: 2147483648,
+      error: ERROR.TRACKER_ERROR,
+      error_string: 'Torrent not found on tracker',
+      eta: -1,
+      is_finished: false,
+      is_stalled: true,
+      labels: [],
+      left_until_done: 1073741824,
+      metadata_percent_complete: 1,
+      peers_connected: 0,
+      peers_getting_from_us: 0,
+      peers_sending_to_us: 0,
+      percent_done: 0.5,
+      queue_position: 8,
+      rate_download: 0,
+      rate_upload: 0,
+      size_when_done: 2147483648,
+      status: STATUS.DOWNLOAD,
+      trackers: [{ announce: 'http://tracker.error.com/announce', id: 0, scrape: 'http://tracker.error.com/scrape', sitename: 'error', tier: 0 }],
+      uploaded_ever: 0,
+      upload_ratio: 0
+    }),
+    // 种子 10: 等待下载（队列中）
+    createTorrentRow({
+      id: 10,
+      added_date: Math.floor(Date.now() / 1000) - 3600,
+      file_count: 1,
+      name: 'Queued for Download Example',
+      primary_mime_type: 'application/x-iso9660-image',
+      total_size: 1073741824,
+      error: 0,
+      error_string: '',
+      eta: -1,
+      is_finished: false,
+      is_stalled: false,
+      labels: ['queued'],
+      left_until_done: 1073741824,
+      metadata_percent_complete: 1,
+      peers_connected: 0,
+      peers_getting_from_us: 0,
+      peers_sending_to_us: 0,
+      percent_done: 0,
+      queue_position: 9,
+      rate_download: 0,
+      rate_upload: 0,
+      size_when_done: 1073741824,
+      status: STATUS.DOWNLOAD_WAIT,
+      trackers: [{ announce: 'http://tracker.example.com/announce', id: 0, scrape: 'http://tracker.example.com/scrape', sitename: 'example', tier: 0 }],
+      uploaded_ever: 0,
+      upload_ratio: 0
+    }),
+    // 种子 11: 等待校验（队列中）
+    createTorrentRow({
+      id: 11,
+      added_date: Math.floor(Date.now() / 1000) - 7200,
+      file_count: 1,
+      name: 'Queued for Verification Example',
+      primary_mime_type: 'application/x-iso9660-image',
+      total_size: 3221225472,
+      error: 0,
+      error_string: '',
+      eta: -1,
+      is_finished: true,
+      is_stalled: false,
+      labels: [],
+      left_until_done: 0,
+      metadata_percent_complete: 1,
+      peers_connected: 0,
+      peers_getting_from_us: 0,
+      peers_sending_to_us: 0,
+      percent_done: 1,
+      queue_position: 10,
+      rate_download: 0,
+      rate_upload: 0,
+      recheck_progress: 0,
+      size_when_done: 3221225472,
+      status: STATUS.CHECK_WAIT,
+      trackers: [],
+      uploaded_ever: 1610612736,
+      upload_ratio: 0.5
+    }),
+    // 种子 12: 正在获取元数据（Magnet）
+    createTorrentRow({
+      id: 12,
+      added_date: Math.floor(Date.now() / 1000) - 300,
+      file_count: 0,
+      name: 'Magnet Link - Metadata Downloading...',
+      primary_mime_type: 'application/x-bittorrent',
+      total_size: 0,
+      error: 0,
+      error_string: '',
+      eta: -1,
+      is_finished: false,
+      is_stalled: false,
+      labels: ['magnet'],
+      left_until_done: 0,
+      metadata_percent_complete: 0.35,
+      peers_connected: 8,
+      peers_getting_from_us: 0,
+      peers_sending_to_us: 3,
+      percent_done: 0,
+      queue_position: 11,
+      rate_download: 51200,
+      rate_upload: 0,
+      size_when_done: 0,
+      status: STATUS.DOWNLOAD,
+      trackers: [{ announce: 'http://tracker.magnet.com/announce', id: 0, scrape: 'http://tracker.magnet.com/scrape', sitename: 'magnet', tier: 0 }],
+      uploaded_ever: 0,
+      upload_ratio: 0
     })
   ];
 
