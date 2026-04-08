@@ -49,7 +49,7 @@
   --color-warning-foreground: #ff8400;
 
   /* Toolbar variables */
-  --toolbar-height: 64px;
+  --toolbar-height: 56px;
   --toolbar-padding: 16px 24px;
   --toolbar-gap: 12px;
   --toolbar-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -57,7 +57,7 @@
   /* Status bar variables */
   --statusbar-height: 56px;
   --statusbar-padding: 16px 24px;
-  --statusbar-gap: 16px;
+  --statusbar-gap: 8px;
 
   /* Card variables (torrent list) */
   --card-radius: 12px;
@@ -310,7 +310,7 @@ body,
    ============================================ */
 #mainwin-statusbar,
 .mainwin-statusbar {
-  height: var(--statusbar-height);background-color: var(--background) !important;padding: var(--statusbar-padding) !important;
+  height: var(--statusbar-height);box-sizing: border-box !important;background-color: var(--background) !important;padding: var(--statusbar-padding) !important;
   gap: var(--statusbar-gap);border-bottom: none !important;
   display: flex;
   align-items: center;
@@ -549,8 +549,13 @@ body,
   box-shadow: 0 0 0 1px #ff5c33, 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
-/* Paused - Gray border (matches muted-foreground color) */
-#torrent-list .torrent.selected.paused {
+/* Paused - Gray border (higher specificity to override status-based colors) */
+#torrent-list .torrent.selected.paused,
+#torrent-list .torrent.selected.paused:has(.torrent-progress-bar.leech),
+#torrent-list .torrent.selected.paused:has(.torrent-progress-bar.seed),
+#torrent-list .torrent.selected.paused:has(.torrent-progress-bar.verify),
+#torrent-list .torrent.selected.paused:has(.torrent-progress-bar.magnet),
+#torrent-list .torrent.selected.paused:has(.torrent-progress-bar.error) {
   border-color: #B8B9B6 !important;
   box-shadow: 0 0 0 1px #B8B9B6, 0 2px 8px rgba(0, 0, 0, 0.12);
 }
@@ -865,8 +870,8 @@ body,
   grid-column-gap: 16px;
   grid-row-gap: 4px;grid-template-areas: "icon name labels"
     "icon progress-text progress-text"
-    "icon progressbar progressbar"
-    "icon peers peers" !important;grid-template-columns: 48px auto 1fr !important;padding: 20px !important;
+    "progressbar progressbar progressbar"
+    "peers peers peers" !important;grid-template-columns: 48px auto 1fr !important;padding: 20px !important;
 }
 
 /* ============================================
