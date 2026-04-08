@@ -504,13 +504,38 @@ body,
   align-items: center;
 }
 
-#torrent-list .torrent:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-  transform: translateY(-1px);}
-
 #torrent-list .torrent: nth-child(2n),
 #torrent-list .torrent:nth-child(odd) {
   background-color: var(--card);}
+
+/* Hover state - same border colors as selected */
+#torrent-list .torrent:hover {
+  border-color: var(--primary) !important;}
+
+/* Status-based border colors on hover */
+#torrent-list .torrent:hover:has(.torrent-progress-bar.leech) {
+  border-color: #B2B2FF !important;}
+
+#torrent-list .torrent:hover:has(.torrent-progress-bar.seed) {
+  border-color: #B6FFCE !important;}
+
+#torrent-list .torrent:hover:has(.torrent-progress-bar.verify) {
+  border-color: #FF8400 !important;}
+
+#torrent-list .torrent:hover:has(.torrent-progress-bar.magnet) {
+  border-color: #FF8400 !important;}
+
+#torrent-list .torrent:hover:has(.torrent-progress-bar.error) {
+  border-color: #ff5c33 !important;}
+
+/* Paused on hover - gray border */
+#torrent-list .torrent.paused:hover,
+#torrent-list .torrent.paused:hover:has(.torrent-progress-bar.leech),
+#torrent-list .torrent.paused:hover:has(.torrent-progress-bar.seed),
+#torrent-list .torrent.paused:hover:has(.torrent-progress-bar.verify),
+#torrent-list .torrent.paused:hover:has(.torrent-progress-bar.magnet),
+#torrent-list .torrent.paused:hover:has(.torrent-progress-bar.error) {
+  border-color: #B8B9B6 !important;}
 
 /* Selected state */
 #torrent-list .torrent.selected {
