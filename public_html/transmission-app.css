@@ -1217,6 +1217,31 @@ body,
   white-space: nowrap !important;
 }
 
+.state-badge.state-leech {
+  background-color: var(--color-info) !important;
+  color: var(--color-info-foreground) !important;
+}
+
+.state-badge.state-seed {
+  background-color: var(--color-success) !important;
+  color: var(--color-success-foreground) !important;
+}
+
+.state-badge.state-verify {
+  background-color: var(--color-warning) !important;
+  color: var(--color-warning-foreground) !important;
+}
+
+.state-badge.state-paused {
+  background-color: var(--muted) !important;
+  color: var(--muted-foreground) !important;
+}
+
+.state-badge.state-error {
+  background-color: var(--color-error) !important;
+  color: var(--color-error-foreground) !important;
+}
+
 .last-activity-badge {
   color: var(--color-success-foreground) !important;
   font-weight: 500 !important;
@@ -1225,20 +1250,8 @@ body,
   gap: 8px !important;
 }
 
-.last-activity-badge::before {
-  content: '' !important;
-  width: 8px !important;
-  height: 8px !important;
-  background-color: var(--color-success-foreground) !important;
-  border-radius: 50% !important;
-  flex-shrink: 0 !important;
-}
-
 /* Magnet button */
 .inspector-info-magnet button {
-  background-color: var(--primary) !important;
-  -webkit-mask: none !important;
-  mask: none !important;
   width: 16px !important;
   height: 16px !important;
   border-radius: 3px !important;
