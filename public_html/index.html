@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en" xml:lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=8,IE=9,IE=10" />
     <!-- ticket #4555 -->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      content="width=device-width, initial-scale=1.0"
     />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -92,9 +92,9 @@
 
       <header id="mainwin-statusbar">
         <span>Show</span>
-        <select id="filter-mode"></select>
-        <select id="filter-tracker"></select>
-        <div style="display: flex; position: relative">
+        <select id="filter-mode" aria-label="Filter mode"></select>
+        <select id="filter-tracker" aria-label="Filter tracker"></select>
+        <div class="search-container">
           <input type="search" id="torrent-search" placeholder="Filter" />
           <input type="reset" id="reset" value="&times;" />
         </div>
@@ -106,7 +106,7 @@
         <div class="speed-container">
           <div id="speed-up"></div>
         </div>
-        <button id="turtle"></button>
+        <button id="turtle" aria-label="Toggle turtle mode"></button>
       </header>
 
       <main id="mainwin-workarea">
