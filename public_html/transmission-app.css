@@ -970,3 +970,374 @@ body,
     width: 40px;height: 40px !important;
   }
 }
+
+/* ============================================
+   Inspector Panel - New Design Styles
+   ============================================ */
+
+/* Inspector container */
+.tabs-container {
+  background: var(--background) !important;
+  border-left: 1px solid var(--border) !important;
+  box-shadow: none !important;
+  min-width: 450px !important;
+  width: 450px !important;
+  top: 112px !important;
+  bottom: 0 !important;
+  flex-direction: column !important;
+  padding: 16px 20px 12px 20px !important;
+  gap: 12px !important;
+  overflow: hidden !important;
+}
+
+@media (width >= 600px) {
+  .tabs-container {
+    min-width: 450px !important;
+    width: 450px !important;
+  }
+}
+
+@media (width < 600px) {
+  .tabs-container {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    min-width: auto !important;
+  }
+}
+
+@media (width >= 950px) {
+  #inspector {
+    box-shadow: initial !important;
+    position: initial !important;
+  }
+}
+
+/* Tabs buttons area */
+.tabs-buttons {
+  background-color: var(--secondary) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 4px !important;
+  gap: 4px !important;
+  margin: 0 !important;
+  align-self: stretch !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+}
+
+.tabs-button {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 6px !important;
+  color: var(--muted-foreground) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  padding: 8px 4px !important;
+  height: auto !important;
+  min-width: 70px !important;
+  flex: 1 !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s ease, color 0.15s ease !important;
+}
+
+.tabs-button.selected,
+.tabs-button:active,
+.tabs-button:checked {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+  border: none !important;
+}
+
+/* Close button */
+.tabs-container-close {
+  position: static !important;
+  width: 32px !important;
+  height: 32px !important;
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+  border-radius: 6px !important;
+  font-size: 18px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  border: none !important;
+  transition: opacity 0.15s ease !important;
+}
+
+.tabs-container-close:hover {
+  opacity: 0.9 !important;
+}
+
+/* Tabs pages */
+.tabs-pages {
+  width: 100% !important;
+  flex: 1 1 auto !important;
+  padding: 16px 0 20px 0 !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  min-height: 0 !important;
+}
+
+/* Inspector info page */
+.inspector-info-page {
+  display: none !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.inspector-info-page:not(.hidden) {
+  display: flex !important;
+}
+
+/* Name row */
+.inspector-name-row {
+  padding: 0 4px;
+  margin-bottom: 4px;
+}
+
+.inspector-name-row span {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--foreground);
+  line-height: 1.4;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+/* Inspector cards */
+.inspector-card {
+  background-color: var(--card) !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--border) !important;
+  padding: 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.inspector-card-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.inspector-card-icon {
+  width: 28px !important;
+  height: 28px !important;
+  background-color: var(--primary) !important;
+  border-radius: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+.inspector-card-icon.activity::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 12h-4l-3 9L9 3l-3 9H2'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.inspector-card-icon.details::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z'/%3E%3Cpolyline points='14 2 14 8 20 8'/%3E%3Cline x1='16' y1='13' x2='8' y2='13'/%3E%3Cline x1='16' y1='17' x2='8' y2='17'/%3E%3Cline x1='10' y1='9' x2='8' y2='9'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.inspector-card-header span {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: var(--foreground) !important;
+}
+
+.inspector-card-separator {
+  height: 1px !important;
+  background-color: var(--border) !important;
+  width: 100% !important;
+}
+
+/* Inspector rows */
+.inspector-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.inspector-row label {
+  color: var(--muted-foreground) !important;
+  font-size: 13px !important;
+  font-weight: normal !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+.inspector-row span {
+  color: var(--foreground) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  text-align: right !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Special badges */
+.state-badge {
+  background-color: var(--color-info) !important;
+  color: var(--color-info-foreground) !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  display: inline-block !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+.last-activity-badge {
+  color: var(--color-success-foreground) !important;
+  font-weight: 500 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.last-activity-badge::before {
+  content: '' !important;
+  width: 8px !important;
+  height: 8px !important;
+  background-color: var(--color-success-foreground) !important;
+  border-radius: 50% !important;
+  flex-shrink: 0 !important;
+}
+
+/* Magnet button */
+.inspector-info-magnet button {
+  background-color: var(--primary) !important;
+  -webkit-mask: none !important;
+  mask: none !important;
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 3px !important;
+  cursor: pointer !important;
+  border: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 16 16' fill='%23ffffff'%3E%3Cpath d='M8 1a7 7 0 0 0-7 7v3h4V8a3 3 0 0 1 6 0v3h4V8a7 7 0 0 0-7-7Zm7 11h-4v3h4v-3ZM5 12H1v3h4v-3ZM0 8a8 8 0 1 1 16 0v8h-6V8a2 2 0 1 0-4 0v8H0V8Z'/%3E%3C/svg%3E");
+  background-size: 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Peers tab */
+.peer-list {
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  width: 100% !important;
+}
+
+.peer-list th {
+  background-color: var(--card) !important;
+  color: var(--foreground) !important;
+  font-weight: 600 !important;
+  padding: 10px 8px !important;
+}
+
+.peer-list td {
+  border-color: var(--border) !important;
+  color: var(--muted-foreground) !important;
+  padding: 8px !important;
+}
+
+.peer-list .torrent-row td {
+  background: var(--secondary) !important;
+  color: var(--foreground) !important;
+}
+
+/* Tiers tab */
+#inspector-tiers-list {
+  margin: 0 !important;
+  padding: 16px !important;
+  background-color: var(--card) !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--border) !important;
+}
+
+#inspector-tiers-list .tier-list-torrent {
+  color: var(--foreground) !important;
+  padding: 12px 0 8px 0 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+#inspector-tiers-list .tier-list-row {
+  background-color: transparent !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding: 12px 0 !important;
+  font-size: 13px !important;
+}
+
+#inspector-tiers-list .tier-list-row:last-child {
+  border-bottom: none !important;
+}
+
+#inspector-tiers-list .tier-list-tracker {
+  color: var(--foreground) !important;
+  font-weight: 600 !important;
+}
+
+/* Files tab */
+#inspector-file-list {
+  background-color: var(--card) !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--border) !important;
+  padding: 8px 12px !important;
+  margin: 0 !important;
+}
+
+#inspector-file-list .inspector-torrent-file-list-entry {
+  background-color: transparent !important;
+  margin-bottom: 0 !important;
+  padding: 10px 8px !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+#inspector-file-list .inspector-torrent-file-list-entry:last-child {
+  border-bottom: none !important;
+}
+
+#inspector-file-list .inspector-torrent-file-list-entry-name {
+  color: var(--foreground) !important;
+}
+
+#inspector-file-list .inspector-torrent-file-list-entry-progress {
+  color: var(--muted-foreground) !important;
+}
+
+/* Hide old inspector header if present */
+#inspector-header,
+#torrent-inspector-name {
+  display: none !important;
+}
