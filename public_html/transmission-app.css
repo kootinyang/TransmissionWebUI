@@ -1269,14 +1269,14 @@ body,
 }
 
 .inspector-card-icon.peers-summary {
-  background-color: var(--color-info) !important;
+  background-color: var(--color-warning-foreground) !important;
 }
 
 .inspector-card-icon.peers-summary::before {
   content: '';
   width: 16px;
   height: 16px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='20' x2='18' y2='10'/%3E%3Cline x1='12' y1='20' x2='12' y2='4'/%3E%3Cline x1='6' y1='20' x2='6' y2='14'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='20' x2='18' y2='10'/%3E%3Cline x1='12' y1='20' x2='12' y2='4'/%3E%3Cline x1='6' y1='20' x2='6' y2='14'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -1290,7 +1290,7 @@ body,
   content: '';
   width: 16px;
   height: 16px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M23 21v-2a4 4 0 0 0-3-3.87'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M23 21v-2a4 4 0 0 0-3-3.87'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -1489,12 +1489,30 @@ body,
 }
 
 /* Tiers tab */
+.tiers-page {
+  gap: 16px !important;
+}
+
+.inspector-card-icon.tiers-icon {
+  background-color: var(--primary) !important;
+}
+
+.inspector-card-icon.tiers-icon::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 #inspector-tiers-list {
   margin: 0 !important;
-  padding: 16px !important;
-  background-color: var(--card) !important;
-  border-radius: 12px !important;
-  border: 1px solid var(--border) !important;
+  padding: 0 !important;
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  border: none !important;
 }
 
 #inspector-tiers-list .tier-list-torrent {
@@ -1521,31 +1539,225 @@ body,
 }
 
 /* Files tab */
-#inspector-file-list {
+.files-page:not(.hidden) {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+.files-card {
   background-color: var(--card) !important;
   border-radius: 12px !important;
   border: 1px solid var(--border) !important;
-  padding: 8px 12px !important;
+  padding: 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.files-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.files-icon {
+  width: 28px !important;
+  height: 28px !important;
+  background-color: var(--primary) !important;
+  border-radius: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+.files-icon::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 14 1.5-1.5A2 2 0 0 1 9.24 11H20a2 2 0 0 1 1.79 2.894l-2.33 8A2 2 0 0 1 17.5 23H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3.828a2 2 0 0 1 1.414.586l.828.828a2 2 0 0 0 1.414.586H17a2 2 0 0 1 2 2v1'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#inspector-file-list {
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  border: none !important;
+  padding: 0 !important;
   margin: 0 !important;
+  list-style: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
 }
 
 #inspector-file-list .inspector-torrent-file-list-entry {
-  background-color: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 6px 0 !important;
   margin-bottom: 0 !important;
-  padding: 10px 8px !important;
-  border-bottom: 1px solid var(--border) !important;
+  border-bottom: none !important;
+  gap: 0 !important;
+  min-height: 28px;
 }
 
-#inspector-file-list .inspector-torrent-file-list-entry:last-child {
-  border-bottom: none !important;
+#inspector-file-list .inspector-torrent-file-list-entry:nth-child(even) {
+  background-color: var(--muted) !important;
+  border-radius: 4px;
+}
+
+#inspector-file-list .inspector-torrent-file-list-entry:nth-child(odd) {
+  background-color: transparent !important;
+}
+
+#inspector-file-list .inspector-torrent-file-list-entry.skip {
+  opacity: 0.5 !important;
+}
+
+#inspector-file-list .inspector-torrent-file-list-entry.skip .inspector-torrent-file-list-entry-name {
+  color: var(--muted-foreground) !important;
+}
+
+#inspector-file-list .file-info-col {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  padding: 0 8px !important;
+  flex: 1 !important;
+  min-width: 0 !important;
 }
 
 #inspector-file-list .inspector-torrent-file-list-entry-name {
   color: var(--foreground) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  line-height: 1.4 !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 #inspector-file-list .inspector-torrent-file-list-entry-progress {
   color: var(--muted-foreground) !important;
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+}
+
+#inspector-file-list .file-wanted-control {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--border) !important;
+  background-color: transparent !important;
+  margin: 0 0 0 4px !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+  cursor: pointer !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+#inspector-file-list .file-wanted-control:checked {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+#inspector-file-list .file-wanted-control:checked::after {
+  content: '' !important;
+  width: 10px !important;
+  height: 10px !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+#inspector-file-list .file-wanted-control:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* Override all file-priority-radiobox styles globally */
+.file-priority-radiobox {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  flex-shrink: 0 !important;
+}
+
+.file-priority-radiobox>* {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background-color: transparent !important;
+  border: 1px solid var(--muted-foreground) !important;
+  border-radius: 4px !important;
+  height: 20px !important;
+  width: 20px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  display: grid !important;
+  place-items: center !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+.file-priority-radiobox>*.checked {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.file-priority-radiobox>*.normal {
+  border-width: 1px !important;
+  width: 20px !important;
+}
+
+.file-priority-radiobox>*::after {
+  content: '' !important;
+  width: 12px !important;
+  height: 12px !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  display: block !important;
+  background-color: transparent !important;
+}
+
+/* arrow-down for low priority */
+.file-priority-radiobox>*.low::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='12' y1='5' x2='12' y2='19'%3E%3C/line%3E%3Cpolyline points='19 12 12 19 5 12'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+
+/* minus for normal priority */
+.file-priority-radiobox>*.normal::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3C/svg%3E") !important;
+}
+
+/* arrow-up for high priority */
+.file-priority-radiobox>*.high::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='12' y1='19' x2='12' y2='5'%3E%3C/line%3E%3Cpolyline points='5 12 12 5 19 12'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+
+.file-priority-radiobox>*.low.checked::after,
+.file-priority-radiobox>*.normal.checked::after,
+.file-priority-radiobox>*.high.checked::after {
+  filter: none !important;
+  background-color: transparent !important;
+}
+
+/* Override old grid layout styles */
+#inspector-file-list .inspector-torrent-file-list-entry .inspector-torrent-file-list-entry-name,
+#inspector-file-list .inspector-torrent-file-list-entry .inspector-torrent-file-list-entry-progress,
+#inspector-file-list .inspector-torrent-file-list-entry .file-wanted-control {
+  grid-area: auto !important;
 }
 
 /* Hide old inspector header if present */
