@@ -2970,8 +2970,8 @@
     {
       "type": "frame",
       "id": "fkiJx",
-      "x": 1300,
-      "y": 0,
+      "x": 1000,
+      "y": 900,
       "name": "Inspector Files Tab",
       "theme": {
         "Mode": "Dark"
