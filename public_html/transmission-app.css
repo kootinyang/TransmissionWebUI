@@ -801,6 +801,7 @@ body,
 #torrent-list .torrent.compact .torrent-peer-details {
   font-size: 12px;
   white-space: nowrap;
+  padding: 0 8px;
 }
 
 /* Error state */
@@ -825,7 +826,8 @@ body,
 }
 
 #torrent-list .torrent .torrent-progress-bar.compact {
-  min-width: 60px;height: 4px !important;min-height: 4px !important;
+  min-width: 100px;height: 10px !important;min-height: 4px !important;
+  margin: 0 8px;
 }
 
 /* Progress bar fill - use ::before for the filled part */
