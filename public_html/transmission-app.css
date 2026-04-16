@@ -1014,7 +1014,8 @@ body,
 }
 
 @media (width >= 950px) {
-  #inspector {
+  #inspector,
+  #prefs-dialog {
     box-shadow: initial !important;
     position: initial !important;
   }
@@ -1107,21 +1108,25 @@ body,
   display: flex !important;
 }
 
-/* Name row */
-.inspector-name-row {
+/* Inspector header */
+.inspector-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
   padding: 0 4px;
-  margin-bottom: 4px;
+  flex-shrink: 0;
 }
 
-.inspector-name-row span {
+.inspector-header-title {
   font-size: 16px;
   font-weight: 500;
   color: var(--foreground);
   line-height: 1.4;
-  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
-  word-break: break-word;
+  white-space: nowrap;
+  flex: 1;
 }
 
 /* Inspector cards */
@@ -2090,8 +2095,8 @@ body,
 
 /* PrefsDialog uses the same right-side slide-out as Inspector */
 #prefs-dialog.tabs-container {
-  padding: 0 !important;
-  gap: 0 !important;
+  padding: 16px 20px 12px 20px !important;
+  gap: 12px !important;
   overflow: hidden !important;
 }
 
@@ -2099,8 +2104,8 @@ body,
 .prefs-dialog-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 16px 20px;
+  justify-content: space-between;
+  padding: 0 4px;
   flex-shrink: 0;
 }
 
@@ -2114,7 +2119,7 @@ body,
 
 /* PrefsDialog tabs wrapper */
 .prefs-dialog-tabs-wrapper {
-  padding: 8px 20px 0 20px;
+  padding: 0 !important;
   flex-shrink: 0;
 }
 
@@ -2128,7 +2133,7 @@ body,
 }
 
 .prefs-dialog-content .tabs-pages {
-  padding: 16px 20px 20px 20px !important;
+  padding: 16px 0 20px 0 !important;
   display: flex;
   flex-direction: column;
 }
@@ -2350,7 +2355,8 @@ body,
 }
 
 /* Close button for PrefsDialog */
-#prefs-dialog .tabs-container-close {
+#prefs-dialog .tabs-container-close,
+#inspector .tabs-container-close {
   background-color: var(--card) !important;
   border: 1px solid var(--border) !important;
   margin-left: auto !important;
