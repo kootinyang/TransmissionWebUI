@@ -1,5 +1,5 @@
 {
-  "version": "2.10",
+  "version": "2.11",
   "children": [
     {
       "type": "frame",
@@ -10,6 +10,7 @@
       "theme": {
         "Mode": "Dark"
       },
+      "enabled": false,
       "width": 1200,
       "height": 800,
       "fill": "#000000",
@@ -1146,6 +1147,7 @@
       "theme": {
         "Mode": "Dark"
       },
+      "enabled": false,
       "width": 450,
       "height": 900,
       "fill": "$--background",
@@ -2130,6 +2132,7 @@
       "theme": {
         "Mode": "Dark"
       },
+      "enabled": false,
       "width": 450,
       "height": 900,
       "fill": "$--background",
@@ -2976,6 +2979,7 @@
       "theme": {
         "Mode": "Dark"
       },
+      "enabled": false,
       "width": 450,
       "height": 900,
       "fill": "$--background",
@@ -4317,6 +4321,7 @@
       "theme": {
         "d:Mode": "Dark"
       },
+      "enabled": false,
       "width": 280,
       "fill": "$d:--popover",
       "cornerRadius": 6,
@@ -5493,6 +5498,7 @@
       "theme": {
         "Mode": "Dark"
       },
+      "enabled": false,
       "width": 450,
       "height": 700,
       "fill": "$--background",
@@ -6431,6 +6437,1297 @@
                       ]
                     }
                   ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "dlg_rename_v2",
+      "x": 1000,
+      "y": 900,
+      "name": "Rename Torrent Dialog (Level 1)",
+      "theme": {
+        "Mode": "Dark"
+      },
+      "width": 440,
+      "height": 240,
+      "fill": "$--card",
+      "cornerRadius": 12,
+      "stroke": {
+        "align": "inside",
+        "thickness": 1,
+        "fill": "$--border"
+      },
+      "effect": {
+        "type": "shadow",
+        "shadowType": "outer",
+        "color": "#00000066",
+        "offset": {
+          "x": 0,
+          "y": 8
+        },
+        "blur": 20
+      },
+      "layout": "vertical",
+      "gap": 24,
+      "padding": 24,
+      "children": [
+        {
+          "type": "text",
+          "id": "rename_title_txt",
+          "name": "Title",
+          "fill": "$--foreground",
+          "content": "Rename Torrent",
+          "fontFamily": "Inter",
+          "fontSize": 18,
+          "fontWeight": "600"
+        },
+        {
+          "type": "frame",
+          "id": "rename_workarea_v2",
+          "name": "Workarea",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "children": [
+            {
+              "type": "text",
+              "id": "rename_label_v2",
+              "name": "Label",
+              "fill": "$--muted-foreground",
+              "content": "Enter new name:",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "rename_input_v2",
+              "name": "Input Box",
+              "width": "fill_container",
+              "height": 40,
+              "fill": "$--background",
+              "cornerRadius": 6,
+              "stroke": {
+                "align": "inside",
+                "thickness": 1,
+                "fill": "$--border"
+              },
+              "padding": [
+                0,
+                12
+              ],
+              "layout": "horizontal",
+              "justifyContent": "flex_start",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "rename_input_text_v2",
+                  "name": "Input Text",
+                  "fill": "$--foreground",
+                  "content": "ubuntu-22.04.3-desktop-amd64.iso",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "rename_buttons_v2",
+          "name": "Buttons",
+          "width": "fill_container",
+          "layout": "horizontal",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "gap": 12,
+          "children": [
+            {
+              "type": "frame",
+              "id": "btn_rename_cancel_v2",
+              "name": "Cancel Button",
+              "height": 36,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "btn_rename_cancel_text_v2",
+                  "name": "Text",
+                  "fill": "$--muted-foreground",
+                  "content": "Cancel",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "btn_rename_ok_v2",
+              "name": "Rename Button",
+              "height": 36,
+              "fill": "$--primary",
+              "cornerRadius": 6,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "btn_rename_ok_text_v2",
+                  "name": "Text",
+                  "fill": "$--primary-foreground",
+                  "content": "Rename",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "dlg_remove_v2",
+      "x": 1500,
+      "y": 900,
+      "name": "Remove Torrent Dialog (Level 1)",
+      "theme": {
+        "Mode": "Dark"
+      },
+      "width": 440,
+      "height": 220,
+      "fill": "$--card",
+      "cornerRadius": 12,
+      "stroke": {
+        "align": "inside",
+        "thickness": 1,
+        "fill": "$--border"
+      },
+      "effect": {
+        "type": "shadow",
+        "shadowType": "outer",
+        "color": "#00000066",
+        "offset": {
+          "x": 0,
+          "y": 8
+        },
+        "blur": 20
+      },
+      "layout": "vertical",
+      "gap": 24,
+      "padding": 24,
+      "children": [
+        {
+          "type": "text",
+          "id": "remove_title_txt",
+          "name": "Title",
+          "fill": "$--foreground",
+          "content": "Remove Torrent",
+          "fontFamily": "Inter",
+          "fontSize": 18,
+          "fontWeight": "600"
+        },
+        {
+          "type": "text",
+          "id": "remove_msg_txt",
+          "name": "Message",
+          "fill": "$--muted-foreground",
+          "content": "Are you sure you want to remove the selected torrent? This action cannot be undone.",
+          "lineHeight": 1.5,
+          "fontFamily": "Inter",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "remove_buttons_v2",
+          "name": "Buttons",
+          "width": "fill_container",
+          "layout": "horizontal",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "gap": 12,
+          "children": [
+            {
+              "type": "frame",
+              "id": "btn_remove_cancel_v2",
+              "name": "Cancel Button",
+              "height": 36,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "btn_remove_cancel_text_v2",
+                  "name": "Text",
+                  "fill": "$--muted-foreground",
+                  "content": "Cancel",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "btn_remove_ok_v2",
+              "name": "Remove Button",
+              "height": 36,
+              "fill": "$--destructive",
+              "cornerRadius": 6,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "btn_remove_ok_text_v2",
+                  "name": "Text",
+                  "fill": "#000000",
+                  "content": "Remove",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "dlg_about_v2",
+      "x": 2272,
+      "y": 812,
+      "name": "About Dialog (Level 1)",
+      "theme": {
+        "Mode": "Dark"
+      },
+      "width": 440,
+      "height": 280,
+      "fill": "$--card",
+      "cornerRadius": 12,
+      "stroke": {
+        "align": "inside",
+        "thickness": 1,
+        "fill": "$--border"
+      },
+      "effect": {
+        "type": "shadow",
+        "shadowType": "outer",
+        "color": "#00000066",
+        "offset": {
+          "x": 0,
+          "y": 8
+        },
+        "blur": 20
+      },
+      "layout": "vertical",
+      "gap": 16,
+      "padding": 24,
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "icon_font",
+          "id": "about_logo_v2",
+          "width": 64,
+          "height": 64,
+          "iconFontName": "info",
+          "iconFontFamily": "lucide",
+          "fill": "$--primary"
+        },
+        {
+          "type": "text",
+          "id": "about_title_v2",
+          "fill": "$--foreground",
+          "content": "Transmission",
+          "fontFamily": "Inter",
+          "fontSize": 20,
+          "fontWeight": "600"
+        },
+        {
+          "type": "text",
+          "id": "about_version_v2",
+          "fill": "$--foreground",
+          "content": "Version 4.0.0",
+          "fontFamily": "Inter",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "about_checksum_v2",
+          "fill": "$--muted-foreground",
+          "content": "abcdef1234567890",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "about_copyright_v2",
+          "fill": "$--muted-foreground",
+          "content": "© 2026 Transmission Project",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "about_buttons_v2",
+          "width": "fill_container",
+          "justifyContent": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "btn_about_close_v2",
+              "height": 36,
+              "fill": "$--secondary",
+              "cornerRadius": 6,
+              "padding": [
+                0,
+                24
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "btn_about_close_text_v2",
+                  "fill": "$--secondary-foreground",
+                  "content": "Close",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "dlg_move_v2",
+      "x": 1512,
+      "y": 1443,
+      "name": "Move Dialog (Level 1)",
+      "theme": {
+        "Mode": "Dark"
+      },
+      "width": 440,
+      "height": 220,
+      "fill": "$--card",
+      "cornerRadius": 12,
+      "stroke": {
+        "align": "inside",
+        "thickness": 1,
+        "fill": "$--border"
+      },
+      "effect": {
+        "type": "shadow",
+        "shadowType": "outer",
+        "color": "#00000066",
+        "offset": {
+          "x": 0,
+          "y": 8
+        },
+        "blur": 20
+      },
+      "layout": "vertical",
+      "gap": 24,
+      "padding": 24,
+      "children": [
+        {
+          "type": "text",
+          "id": "move_title_v2",
+          "fill": "$--foreground",
+          "content": "Set Location",
+          "fontFamily": "Inter",
+          "fontSize": 18,
+          "fontWeight": "600"
+        },
+        {
+          "type": "frame",
+          "id": "move_workarea_v2",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "children": [
+            {
+              "type": "text",
+              "id": "move_label_v2",
+              "fill": "$--muted-foreground",
+              "content": "Location:",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "move_input_v2",
+              "width": "fill_container",
+              "height": 40,
+              "fill": "$--background",
+              "cornerRadius": 6,
+              "stroke": {
+                "align": "inside",
+                "thickness": 1,
+                "fill": "$--border"
+              },
+              "padding": [
+                0,
+                12
+              ],
+              "layout": "horizontal",
+              "justifyContent": "flex_start",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "move_input_text_v2",
+                  "fill": "$--foreground",
+                  "content": "/Downloads/Torrents",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "move_buttons_v2",
+          "width": "fill_container",
+          "layout": "horizontal",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "gap": 12,
+          "children": [
+            {
+              "type": "frame",
+              "id": "btn_move_cancel_v2",
+              "height": 36,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "btn_move_cancel_text_v2",
+                  "fill": "$--muted-foreground",
+                  "content": "Cancel",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "btn_move_apply_v2",
+              "height": 36,
+              "fill": "$--primary",
+              "cornerRadius": 6,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "btn_move_apply_text_v2",
+                  "fill": "$--primary-foreground",
+                  "content": "Apply",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "dlg_labels_v2",
+      "x": 1026,
+      "y": 1313,
+      "name": "Labels Dialog (Level 1)",
+      "theme": {
+        "Mode": "Dark"
+      },
+      "width": 440,
+      "height": 220,
+      "fill": "$--card",
+      "cornerRadius": 12,
+      "stroke": {
+        "align": "inside",
+        "thickness": 1,
+        "fill": "$--border"
+      },
+      "effect": {
+        "type": "shadow",
+        "shadowType": "outer",
+        "color": "#00000066",
+        "offset": {
+          "x": 0,
+          "y": 8
+        },
+        "blur": 20
+      },
+      "layout": "vertical",
+      "gap": 24,
+      "padding": 24,
+      "children": [
+        {
+          "type": "text",
+          "id": "labels_title_v2",
+          "fill": "$--foreground",
+          "content": "Edit Labels",
+          "fontFamily": "Inter",
+          "fontSize": 18,
+          "fontWeight": "600"
+        },
+        {
+          "type": "frame",
+          "id": "labels_workarea_v2",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "children": [
+            {
+              "type": "text",
+              "id": "labels_label_v2",
+              "fill": "$--muted-foreground",
+              "content": "Labels (comma separated):",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "labels_input_v2",
+              "width": "fill_container",
+              "height": 40,
+              "fill": "$--background",
+              "cornerRadius": 6,
+              "stroke": {
+                "align": "inside",
+                "thickness": 1,
+                "fill": "$--border"
+              },
+              "padding": [
+                0,
+                12
+              ],
+              "layout": "horizontal",
+              "justifyContent": "flex_start",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "labels_input_text_v2",
+                  "fill": "$--foreground",
+                  "content": "Movie, 4K, HDR",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "labels_buttons_v2",
+          "width": "fill_container",
+          "layout": "horizontal",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "gap": 12,
+          "children": [
+            {
+              "type": "frame",
+              "id": "btn_labels_cancel_v2",
+              "height": 36,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "btn_labels_cancel_text_v2",
+                  "fill": "$--muted-foreground",
+                  "content": "Cancel",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "btn_labels_save_v2",
+              "height": 36,
+              "fill": "$--primary",
+              "cornerRadius": 6,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "btn_labels_save_text_v2",
+                  "fill": "$--primary-foreground",
+                  "content": "Save",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "dlg_add_v2",
+      "x": 1060,
+      "y": 1844,
+      "name": "Add Torrent Dialog (Level 1)",
+      "theme": {
+        "Mode": "Dark"
+      },
+      "width": 480,
+      "height": 420,
+      "fill": "$--card",
+      "cornerRadius": 12,
+      "stroke": {
+        "align": "inside",
+        "thickness": 1,
+        "fill": "$--border"
+      },
+      "effect": {
+        "type": "shadow",
+        "shadowType": "outer",
+        "color": "#00000066",
+        "offset": {
+          "x": 0,
+          "y": 8
+        },
+        "blur": 20
+      },
+      "layout": "vertical",
+      "gap": 20,
+      "padding": 24,
+      "children": [
+        {
+          "type": "text",
+          "id": "add_title_v2",
+          "fill": "$--foreground",
+          "content": "Open Torrent",
+          "fontFamily": "Inter",
+          "fontSize": 18,
+          "fontWeight": "600"
+        },
+        {
+          "type": "frame",
+          "id": "add_file_section_v2",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "children": [
+            {
+              "type": "text",
+              "id": "add_file_label_v2",
+              "fill": "$--muted-foreground",
+              "content": "Torrent file:",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "add_file_input_v2",
+              "width": "fill_container",
+              "height": 36,
+              "fill": "$--secondary",
+              "cornerRadius": 6,
+              "padding": [
+                0,
+                12
+              ],
+              "layout": "horizontal",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "add_file_placeholder_v2",
+                  "fill": "$--secondary-foreground",
+                  "content": "Choose file...",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "add_url_section_v2",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "children": [
+            {
+              "type": "text",
+              "id": "add_url_label_v2",
+              "fill": "$--muted-foreground",
+              "content": "Or URL / Magnet link:",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "add_url_input_v2",
+              "width": "fill_container",
+              "height": 36,
+              "fill": "$--background",
+              "cornerRadius": 6,
+              "stroke": {
+                "align": "inside",
+                "thickness": 1,
+                "fill": "$--border"
+              },
+              "padding": [
+                0,
+                12
+              ],
+              "layout": "horizontal",
+              "justifyContent": "flex_start",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "add_url_placeholder_v2",
+                  "fill": "$--muted-foreground",
+                  "content": "Paste link here",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "add_loc_section_v2",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "children": [
+            {
+              "type": "text",
+              "id": "add_loc_label_v2",
+              "fill": "$--muted-foreground",
+              "content": "Download location:",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "add_loc_input_v2",
+              "width": "fill_container",
+              "height": 36,
+              "fill": "$--background",
+              "cornerRadius": 6,
+              "stroke": {
+                "align": "inside",
+                "thickness": 1,
+                "fill": "$--border"
+              },
+              "padding": [
+                0,
+                12
+              ],
+              "layout": "horizontal",
+              "justifyContent": "flex_start",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "add_loc_text_v2",
+                  "fill": "$--foreground",
+                  "content": "/Downloads/Torrents",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "add_options_v2",
+          "width": "fill_container",
+          "gap": 20,
+          "children": [
+            {
+              "type": "frame",
+              "id": "chk_paused_v2",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "chk_paused_box_v2",
+                  "width": 16,
+                  "height": 16,
+                  "fill": "$--background",
+                  "cornerRadius": 3,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "$--border"
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "chk_paused_label_v2",
+                  "fill": "$--foreground",
+                  "content": "Start paused",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "add_buttons_v2",
+          "width": "fill_container",
+          "layout": "horizontal",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "gap": 12,
+          "children": [
+            {
+              "type": "frame",
+              "id": "btn_add_cancel_v2",
+              "height": 36,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "btn_add_cancel_text_v2",
+                  "fill": "$--muted-foreground",
+                  "content": "Cancel",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "btn_add_ok_v2",
+              "height": 36,
+              "fill": "$--primary",
+              "cornerRadius": 6,
+              "padding": [
+                0,
+                20
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "btn_add_ok_text_v2",
+                  "fill": "$--primary-foreground",
+                  "content": "OK",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "dlg_shortcuts_v2",
+      "x": 1627,
+      "y": 1994,
+      "name": "Shortcuts Dialog (Level 1)",
+      "theme": {
+        "Mode": "Dark"
+      },
+      "width": 480,
+      "height": 400,
+      "fill": "$--card",
+      "cornerRadius": 12,
+      "stroke": {
+        "align": "inside",
+        "thickness": 1,
+        "fill": "$--border"
+      },
+      "effect": {
+        "type": "shadow",
+        "shadowType": "outer",
+        "color": "#00000066",
+        "offset": {
+          "x": 0,
+          "y": 8
+        },
+        "blur": 20
+      },
+      "layout": "vertical",
+      "gap": 20,
+      "padding": 24,
+      "children": [
+        {
+          "type": "text",
+          "id": "shortcuts_title_v2",
+          "fill": "$--foreground",
+          "content": "Keyboard Shortcuts",
+          "fontFamily": "Inter",
+          "fontSize": 18,
+          "fontWeight": "600"
+        },
+        {
+          "type": "frame",
+          "id": "shortcuts_list_v2",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "type": "frame",
+              "id": "shortcut_row_1",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "sc_label_1",
+                  "fill": "$--muted-foreground",
+                  "content": "Open torrent",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "sc_key_1",
+                  "fill": "$--foreground",
+                  "content": "O",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "shortcut_row_2",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "sc_label_2",
+                  "fill": "$--muted-foreground",
+                  "content": "Select all",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "sc_key_2",
+                  "fill": "$--foreground",
+                  "content": "A",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "shortcut_row_3",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "sc_label_3",
+                  "fill": "$--muted-foreground",
+                  "content": "Pause all",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "sc_key_3",
+                  "fill": "$--foreground",
+                  "content": "P",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "shortcuts_buttons_v2",
+          "width": "fill_container",
+          "justifyContent": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "btn_shortcuts_close_v2",
+              "height": 36,
+              "fill": "$--secondary",
+              "cornerRadius": 6,
+              "padding": [
+                0,
+                24
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "btn_shortcuts_close_text_v2",
+                  "fill": "$--secondary-foreground",
+                  "content": "Close",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "dlg_statistics_v2",
+      "x": 2219,
+      "y": 1567,
+      "name": "Statistics Dialog (Level 1)",
+      "theme": {
+        "Mode": "Dark"
+      },
+      "width": 480,
+      "height": 360,
+      "fill": "$--card",
+      "cornerRadius": 12,
+      "stroke": {
+        "align": "inside",
+        "thickness": 1,
+        "fill": "$--border"
+      },
+      "effect": {
+        "type": "shadow",
+        "shadowType": "outer",
+        "color": "#00000066",
+        "offset": {
+          "x": 0,
+          "y": 8
+        },
+        "blur": 20
+      },
+      "layout": "vertical",
+      "gap": 20,
+      "padding": 24,
+      "children": [
+        {
+          "type": "text",
+          "id": "stats_title_v2",
+          "fill": "$--foreground",
+          "content": "Statistics",
+          "fontFamily": "Inter",
+          "fontSize": 18,
+          "fontWeight": "600"
+        },
+        {
+          "type": "frame",
+          "id": "stats_session_v2",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "text",
+              "id": "stats_session_h",
+              "fill": "$--foreground",
+              "content": "Current Session",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "stats_session_row_1",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "stats_s_l1",
+                  "fill": "$--muted-foreground",
+                  "content": "Uploaded",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "stats_s_v1",
+                  "fill": "$--foreground",
+                  "content": "1.2 GB",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "stats_total_v2",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "text",
+              "id": "stats_total_h",
+              "fill": "$--foreground",
+              "content": "Total",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "stats_total_row_1",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "stats_t_l1",
+                  "fill": "$--muted-foreground",
+                  "content": "Uploaded",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "stats_t_v1",
+                  "fill": "$--foreground",
+                  "content": "45.8 GB",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "stats_buttons_v2",
+          "width": "fill_container",
+          "justifyContent": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "btn_stats_close_v2",
+              "height": 36,
+              "fill": "$--secondary",
+              "cornerRadius": 6,
+              "padding": [
+                0,
+                24
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "btn_stats_close_text_v2",
+                  "fill": "$--secondary-foreground",
+                  "content": "Close",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
                 }
               ]
             }

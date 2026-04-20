@@ -196,3 +196,18 @@
 - `show-labels-dialog` → LabelsDialog
 - `open-torrent` → AddTorrentDialog
 - `remove-selected-torrents` / `trash-selected-torrents` → RemoveDialog
+
+
+快捷键
+A   Select all
+D   Deselect all
+I   Torrent Inspector
+K   Edit Labels…
+L   Set location…
+N   Rename…
+O   Open torrent…
+P   Edit preferences
+R   Resume
+S   Statistics
+U   Pause
+V   Verify local data

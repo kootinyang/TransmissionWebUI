@@ -2362,3 +2362,471 @@ body,
   margin-left: auto !important;
   flex-shrink: 0 !important;
 }
+
+.popup.about-dialog,
+.popup.confirm-dialog,
+.popup.move-dialog,
+.popup.shortcuts-dialog,
+.popup.statistics-dialog,
+.popup.rename-dialog,
+.popup.labels-dialog,
+.popup.add-dialog,
+.popup.open-torrent,
+.popup.remove-dialog {
+  padding: 0 !important;
+  border: 0 !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  position: fixed !important;
+  inset: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.popup.about-dialog .dialog-window,
+.popup.confirm-dialog .dialog-window,
+.popup.move-dialog .dialog-window,
+.popup.shortcuts-dialog .dialog-window,
+.popup.statistics-dialog .dialog-window,
+.popup.rename-dialog .dialog-window,
+.popup.labels-dialog .dialog-window,
+.popup.add-dialog .dialog-window,
+.popup.open-torrent .dialog-window,
+.popup.remove-dialog .dialog-window {
+  background: var(--card) !important;
+  color: var(--foreground) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
+  padding: 24px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 20px !important;
+  box-sizing: border-box !important;
+  max-height: calc(100vh - 32px) !important;
+  overflow: auto !important;
+}
+
+.popup.rename-dialog .dialog-window,
+.popup.confirm-dialog .dialog-window,
+.popup.move-dialog .dialog-window,
+.popup.labels-dialog .dialog-window,
+.popup.remove-dialog .dialog-window,
+.popup.about-dialog .dialog-window {
+  width: min(440px, calc(100vw - 32px)) !important;
+}
+
+.popup.add-dialog .dialog-window,
+.popup.open-torrent .dialog-window,
+.popup.shortcuts-dialog .dialog-window,
+.popup.statistics-dialog .dialog-window {
+  width: min(480px, calc(100vw - 32px)) !important;
+}
+
+.popup.about-dialog .dialog-logo,
+.popup.confirm-dialog .dialog-logo,
+.popup.move-dialog .dialog-logo,
+.popup.shortcuts-dialog .dialog-logo,
+.popup.statistics-dialog .dialog-logo,
+.popup.rename-dialog .dialog-logo,
+.popup.labels-dialog .dialog-logo,
+.popup.add-dialog .dialog-logo,
+.popup.open-torrent .dialog-logo,
+.popup.remove-dialog .dialog-logo {
+  display: block !important;
+  width: 48px !important;
+  height: 48px !important;
+  background-image: url('images/Transmission_icon.png') !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.popup.about-dialog .dialog-heading,
+.popup.confirm-dialog .dialog-heading,
+.popup.move-dialog .dialog-heading,
+.popup.shortcuts-dialog .dialog-heading,
+.popup.statistics-dialog .dialog-heading,
+.popup.rename-dialog .dialog-heading,
+.popup.labels-dialog .dialog-heading,
+.popup.add-dialog .dialog-heading,
+.popup.open-torrent .dialog-heading,
+.popup.remove-dialog .dialog-heading {
+  color: var(--foreground) !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  width: auto !important;
+  flex: 1 !important;
+}
+
+.popup.about-dialog .dialog-heading {
+  text-align: left !important;
+  font-size: 20px !important;
+}
+
+.popup.about-dialog .about-dialog-version-number {
+  margin-top: 6px !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+.popup.about-dialog .about-dialog-version-checksum {
+  margin-top: 4px !important;
+  color: var(--muted-foreground) !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+.popup.about-dialog .dialog-message,
+.popup.confirm-dialog .dialog-message,
+.popup.move-dialog .dialog-message,
+.popup.shortcuts-dialog .dialog-message,
+.popup.statistics-dialog .dialog-message,
+.popup.rename-dialog .dialog-message,
+.popup.labels-dialog .dialog-message,
+.popup.add-dialog .dialog-message,
+.popup.open-torrent .dialog-message,
+.popup.remove-dialog .dialog-message {
+  color: var(--muted-foreground) !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+.popup.about-dialog .dialog-workarea,
+.popup.confirm-dialog .dialog-workarea,
+.popup.move-dialog .dialog-workarea,
+.popup.shortcuts-dialog .dialog-workarea,
+.popup.statistics-dialog .dialog-workarea,
+.popup.rename-dialog .dialog-workarea,
+.popup.labels-dialog .dialog-workarea,
+.popup.add-dialog .dialog-workarea,
+.popup.open-torrent .dialog-workarea,
+.popup.remove-dialog .dialog-workarea {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  color: var(--foreground) !important;
+  width: 100% !important;
+}
+
+.popup.about-dialog .dialog-workarea {
+  text-align: center !important;
+  gap: 10px !important;
+}
+
+.popup.about-dialog .dialog-workarea,
+.popup.about-dialog .dialog-workarea a {
+  color: var(--muted-foreground) !important;
+  font-size: 12px !important;
+}
+
+.popup.about-dialog .dialog-workarea a {
+  color: var(--color-info-foreground) !important;
+  text-decoration: none !important;
+}
+
+.popup.about-dialog .dialog-workarea a:hover {
+  text-decoration: underline !important;
+}
+
+.popup.move-dialog .dialog-workarea label,
+.popup.rename-dialog .dialog-workarea label,
+.popup.labels-dialog .dialog-workarea label,
+.popup.remove-dialog .dialog-workarea label {
+  color: var(--muted-foreground) !important;
+  font-size: 14px !important;
+}
+
+.popup.add-dialog .dialog-workarea label,
+.popup.open-torrent .dialog-workarea label {
+  color: var(--muted-foreground) !important;
+  font-size: 13px !important;
+}
+
+.popup.move-dialog .dialog-workarea input[type='text'],
+.popup.rename-dialog .dialog-workarea input[type='text'],
+.popup.labels-dialog .dialog-workarea input[type='text'],
+.popup.add-dialog .dialog-workarea input[type='text'],
+.popup.add-dialog .dialog-workarea input[type='url'],
+.popup.open-torrent .dialog-workarea input[type='text'],
+.popup.open-torrent .dialog-workarea input[type='url'],
+.popup.statistics-dialog .dialog-workarea input[type='text'],
+.popup.statistics-dialog .dialog-workarea input[type='url'] {
+  height: 40px !important;
+  padding: 0 12px !important;
+  box-sizing: border-box !important;
+  background: var(--background) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  color: var(--foreground) !important;
+  font-size: 14px !important;
+}
+
+.popup.move-dialog .dialog-workarea input[type='text']:focus-visible,
+.popup.rename-dialog .dialog-workarea input[type='text']:focus-visible,
+.popup.labels-dialog .dialog-workarea input[type='text']:focus-visible,
+.popup.add-dialog .dialog-workarea input[type='text']:focus-visible,
+.popup.add-dialog .dialog-workarea input[type='url']:focus-visible,
+.popup.open-torrent .dialog-workarea input[type='text']:focus-visible,
+.popup.open-torrent .dialog-workarea input[type='url']:focus-visible {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 2px !important;
+}
+
+.popup.add-dialog .dialog-workarea input[type='file'],
+.popup.open-torrent .dialog-workarea input[type='file'] {
+  width: 100% !important;
+  color: var(--muted-foreground) !important;
+}
+
+.popup.add-dialog .dialog-workarea input[type='file']::file-selector-button,
+.popup.open-torrent .dialog-workarea input[type='file']::file-selector-button {
+  height: 36px !important;
+  border-radius: 6px !important;
+  border: 0 !important;
+  padding: 0 12px !important;
+  background: var(--secondary) !important;
+  color: var(--secondary-foreground) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+}
+
+.popup.add-dialog .dialog-workarea input[type='file']::file-selector-button:hover,
+.popup.open-torrent .dialog-workarea input[type='file']::file-selector-button:hover {
+  opacity: 0.9 !important;
+}
+
+.popup.add-dialog .dialog-workarea #auto-start-check,
+.popup.open-torrent .dialog-workarea #auto-start-check {
+  width: 16px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  accent-color: var(--primary) !important;
+}
+
+.popup.add-dialog .dialog-workarea #auto-start-label,
+.popup.open-torrent .dialog-workarea #auto-start-label {
+  color: var(--foreground) !important;
+  font-size: 13px !important;
+  margin: 0 !important;
+}
+
+.popup.add-dialog .dialog-workarea #add-dialog-folder-label,
+.popup.open-torrent .dialog-workarea #add-dialog-folder-label {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+
+.popup.add-dialog .dialog-workarea #free-space-text,
+.popup.open-torrent .dialog-workarea #free-space-text {
+  color: var(--muted-foreground) !important;
+  font-size: 12px !important;
+  white-space: nowrap !important;
+}
+
+.popup.about-dialog .dialog-buttons,
+.popup.confirm-dialog .dialog-buttons,
+.popup.move-dialog .dialog-buttons,
+.popup.shortcuts-dialog .dialog-buttons,
+.popup.statistics-dialog .dialog-buttons,
+.popup.rename-dialog .dialog-buttons,
+.popup.labels-dialog .dialog-buttons,
+.popup.add-dialog .dialog-buttons,
+.popup.open-torrent .dialog-buttons,
+.popup.remove-dialog .dialog-buttons {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+.popup.about-dialog .dialog-buttons .flexible-space,
+.popup.confirm-dialog .dialog-buttons .flexible-space,
+.popup.move-dialog .dialog-buttons .flexible-space,
+.popup.shortcuts-dialog .dialog-buttons .flexible-space,
+.popup.statistics-dialog .dialog-buttons .flexible-space,
+.popup.rename-dialog .dialog-buttons .flexible-space,
+.popup.labels-dialog .dialog-buttons .flexible-space,
+.popup.add-dialog .dialog-buttons .flexible-space,
+.popup.open-torrent .dialog-buttons .flexible-space,
+.popup.remove-dialog .dialog-buttons .flexible-space {
+  display: none !important;
+}
+
+.popup.about-dialog .dialog-buttons button,
+.popup.confirm-dialog .dialog-buttons button,
+.popup.move-dialog .dialog-buttons button,
+.popup.shortcuts-dialog .dialog-buttons button,
+.popup.statistics-dialog .dialog-buttons button,
+.popup.rename-dialog .dialog-buttons button,
+.popup.labels-dialog .dialog-buttons button,
+.popup.add-dialog .dialog-buttons button,
+.popup.open-torrent .dialog-buttons button,
+.popup.remove-dialog .dialog-buttons button {
+  height: 36px !important;
+  padding: 0 16px !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  color: var(--muted-foreground) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+}
+
+.popup.rename-dialog .dialog-buttons button:not(.dialog-dismiss-button),
+.popup.move-dialog .dialog-buttons button:not(.dialog-dismiss-button),
+.popup.labels-dialog .dialog-buttons button:not(.dialog-dismiss-button),
+.popup.add-dialog .dialog-buttons button:not(.dialog-dismiss-button),
+.popup.open-torrent .dialog-buttons button:not(.dialog-dismiss-button) {
+  background: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  font-weight: 600 !important;
+}
+
+.popup.remove-dialog .dialog-buttons button:not(.dialog-dismiss-button) {
+  background: var(--destructive) !important;
+  color: var(--black) !important;
+  font-weight: 600 !important;
+}
+
+.popup.about-dialog .dialog-buttons .dialog-dismiss-button,
+.popup.confirm-dialog .dialog-buttons .dialog-dismiss-button,
+.popup.shortcuts-dialog .dialog-buttons .dialog-dismiss-button,
+.popup.statistics-dialog .dialog-buttons .dialog-dismiss-button {
+  background: var(--secondary) !important;
+  color: var(--secondary-foreground) !important;
+  padding: 0 24px !important;
+}
+
+.popup.about-dialog .dialog-buttons button:hover,
+.popup.confirm-dialog .dialog-buttons button:hover,
+.popup.move-dialog .dialog-buttons button:hover,
+.popup.shortcuts-dialog .dialog-buttons button:hover,
+.popup.statistics-dialog .dialog-buttons button:hover,
+.popup.rename-dialog .dialog-buttons button:hover,
+.popup.labels-dialog .dialog-buttons button:hover,
+.popup.add-dialog .dialog-buttons button:hover,
+.popup.open-torrent .dialog-buttons button:hover,
+.popup.remove-dialog .dialog-buttons button:hover {
+  opacity: 0.9 !important;
+}
+
+.popup.about-dialog .dialog-buttons button:focus-visible,
+.popup.confirm-dialog .dialog-buttons button:focus-visible,
+.popup.move-dialog .dialog-buttons button:focus-visible,
+.popup.shortcuts-dialog .dialog-buttons button:focus-visible,
+.popup.statistics-dialog .dialog-buttons button:focus-visible,
+.popup.rename-dialog .dialog-buttons button:focus-visible,
+.popup.labels-dialog .dialog-buttons button:focus-visible,
+.popup.add-dialog .dialog-buttons button:focus-visible,
+.popup.open-torrent .dialog-buttons button:focus-visible,
+.popup.remove-dialog .dialog-buttons button:focus-visible {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 2px !important;
+}
+
+/* dialog-message merged into dialog-workarea: hide when empty, collapse gap when not */
+.popup .dialog-message:empty {
+  display: none !important;
+}
+
+.popup .dialog-message:not(:empty) {
+  margin-bottom: -20px !important;
+  padding-bottom: 8px !important;
+}
+
+.popup.shortcuts-dialog .dialog-message table {
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0 12px !important;
+}
+
+.popup.shortcuts-dialog .dialog-message thead {
+  display: none !important;
+}
+
+.popup.shortcuts-dialog .dialog-message tbody {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+}
+
+.popup.shortcuts-dialog .dialog-message tbody tr {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+}
+
+.popup.shortcuts-dialog .dialog-message td {
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.popup.shortcuts-dialog .dialog-message td:first-child {
+  order: 2 !important;
+  color: var(--foreground) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+}
+
+.popup.shortcuts-dialog .dialog-message td:last-child {
+  order: 1 !important;
+  color: var(--muted-foreground) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+}
+
+.popup.statistics-dialog fieldset.section {
+  border: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.popup.statistics-dialog fieldset.section + fieldset.section {
+  margin-top: 8px !important;
+}
+
+.popup.statistics-dialog legend.title {
+  padding: 0 !important;
+  margin: 0 0 10px 0 !important;
+  color: var(--foreground) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+.popup.statistics-dialog .content {
+  display: grid !important;
+  grid-template-columns: 1fr auto !important;
+  row-gap: 10px !important;
+  column-gap: 16px !important;
+  align-items: center !important;
+}
+
+.popup.statistics-dialog .content label {
+  color: var(--muted-foreground) !important;
+  font-size: 13px !important;
+}
+
+.popup.statistics-dialog .content div {
+  color: var(--foreground) !important;
+  font-size: 13px !important;
+  text-align: right !important;
+}
