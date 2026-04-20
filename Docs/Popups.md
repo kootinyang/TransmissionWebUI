@@ -199,15 +199,20 @@
 
 
 快捷键
+
+O   Open torrent…
+------
 A   Select all
 D   Deselect all
-I   Torrent Inspector
-K   Edit Labels…
+------
+U   Pause
+R   Resume
+------
+V   Verify local data
 L   Set location…
 N   Rename…
-O   Open torrent…
+K   Edit Labels…
+------
+I   Torrent Inspector
 P   Edit preferences
-R   Resume
 S   Statistics
-U   Pause
-V   Verify local data
