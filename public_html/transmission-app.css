@@ -1,7 +1,6 @@
 :root {
   --z-index-popup: 2;
   --logo-size: 64px;
-  --toolbar-height: 50px;
   --black: #000;
   --blue-100: #51b3f7;
   --blue-200: #357aaa;
@@ -29,7 +28,6 @@
   --image-baseline: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24">%0A    <g>%0A        <rect fill="none" fill-rule="evenodd" height="24" width="24"/>%0A        <rect fill-rule="evenodd" height="2" width="16" x="4" y="11"/>%0A    </g>%0A</svg>');
   --image-chevron-dn: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">%0A  <polyline points="6 9 12 15 18 9"></polyline>%0A</svg>');
   --image-chevron-up: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up">%0A  <polyline points="18 15 12 9 6 15"></polyline>%0A</svg>');
-  --image-lock-fill: url('data:image/svg+xml,<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-lock-fill" fill="%23fff"%0A  xmlns="http://www.w3.org/2000/svg">%0A  <path d="M2.5 9a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V9z"/>%0A  <path fill-rule="evenodd" d="M4.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>%0A</svg>');
   --image-magnet: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-magnet" viewBox="0 0 16 16">%0A  <path fill-rule="evenodd" d="M8 1a7 7 0 0 0-7 7v3h4V8a3 3 0 0 1 6 0v3h4V8a7 7 0 0 0-7-7Zm7 11h-4v3h4v-3ZM5 12H1v3h4v-3ZM0 8a8 8 0 1 1 16 0v8h-6V8a2 2 0 1 0-4 0v8H0V8Z"/>%0A</svg>');
   --image-turtle: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">%0A<g transform="scale(-1, 1) translate(-36, -6)">%0A<path fill="%2399C377" d="M9.842 19.922c0 9.842 6.575 9.673 5.158 10.078-7 2-8.803-7.618-9.464-7.618-2.378 0-5.536-.423-5.536-2.46C0 17.883 2.46 15 6.151 15c2.379 0 3.691 2.883 3.691 4.922zM36 28.638c0 1.104-3.518-.741-5 0-2 1-2-.896-2-2s1.343-1 3-1 4 1.895 4 3z"/>%0A<path fill="%2399C377" d="M16.715 33.143c0 2.761-1.279 2.857-2.857 2.857S11 35.903 11 33.143c0-.489.085-1.029.234-1.587.69-2.59 2.754-5.556 4.052-5.556 1.578 0 1.429 4.382 1.429 7.143zm8.571 0c0 2.761 1.278 2.857 2.856 2.857C29.721 36 31 35.903 31 33.143c0-.489-.085-1.029-.234-1.587-.691-2.59-2.754-5.556-4.052-5.556-1.578 0-1.428 4.382-1.428 7.143z"/>%0A<path fill="%235EA24D" d="M32 27c0 4-5.149 4-11.5 4S9 31 9 27c0-6.627 5.149-12 11.5-12S32 20.373 32 27z"/>%0A<circle fill="%23000" cx="5" cy="18" r="1"/>%0A</g>%0A</svg>%0A');
   --app-image-url: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box">%0A    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>%0A    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>%0A    <line x1="12" y1="22.08" x2="12" y2="12"></line>%0A</svg>');
@@ -46,7 +44,6 @@
   --color-fg-error: var(--red-500);
   --color-fg-port-closed: var(--red-500);
   --color-fg-port-open: var(--green-100);
-  --color-progressbar-background-2: var(--green-400);
   --color-progressbar-leech: var(--blue-200);
   --color-progressbar-magnet: var(--yellow-300);
   --color-progressbar-paused: var(--grey-200);
@@ -57,12 +54,10 @@
 }
 @media(prefers-color-scheme:dark) {
   :root {
-    --color-bg-hover: var(--grey-40);
     --color-bg-odd: var(--black);
     --color-bg-popup: var(--black);
     --color-bg-primary: var(--black);
     --color-bg-selected: var(--default-accent-color-dark);
-    --color-bg-warn: #cf6679;
     --color-border-default: var(--default-border-dark);
     --color-border-stark: var(--dark-mode-white);
     --color-border-starkest: var(--grey-500);
@@ -71,8 +66,6 @@
     --color-fg-primary: var(--dark-mode-white);
     --color-fg-secondary: var(--nice-grey);
     --color-fg-selected: var(--dark-mode-white);
-    --color-fg-tertiary: var(--grey-500);
-    --color-fg-warn: var(--dark-mode-black);
     --color-progressbar-fg-1: #edefff;
     --color-progressbar-fg-2: #edefff;
     --color-progressbar-fg-3: #edefff;
@@ -86,10 +79,8 @@
   }
   :root .contrast-more {
     --color-bg-even: var(--black);
-    --color-bg-hover: var(--grey-40);
     --color-bg-selected: var(--blue-300);
     --color-bg-tabs: var(--black);
-    --color-bg-warn: #cf6679;
     --color-border-default: var(--white);
     --color-border-stark: var(--white);
     --color-border-starkest: var(--white);
@@ -101,13 +92,9 @@
     --color-fg-primary: var(--white);
     --color-fg-secondary: var(--white);
     --color-fg-selected: var(--white);
-    --color-fg-tabs: var(--white);
-    --color-fg-tertiary: var(--white);
-    --color-fg-warn: var(--black);
     --color-progressbar-fg-1: #fff;
     --color-progressbar-fg-2: #fff;
     --color-progressbar-fg-3: #000;
-    --color-progressbar-background-2: var(--white);
     --color-progressbar-magnet: var(--yellow-300);
     --color-progressbar-paused: var(--grey-500);
     --color-progressbar-queued: var(--blue-400);
@@ -122,16 +109,13 @@
 }
 @media(prefers-color-scheme:light) {
   :root {
-    --color-bg-hover: var(--nice-grey);
     --color-bg-odd: var(--white);
     --color-bg-popup: var(--white);
     --color-bg-primary: var(--white);
     --color-bg-selected: var(--blue-300);
-    --color-bg-warn: #e4606d5b;
     --color-border-default: var(--default-border-light);
     --color-border-stark: var(--grey-500);
     --color-border-starkest: #d0d7de;
-    --color-dialog-border: var(--nice-grey);
     --color-fg-disabled: var(--grey);
     --color-fg-error: var(--red-500);
     --color-fg-on-popup: var(--grey-900);
@@ -140,8 +124,6 @@
     --color-fg-primary: #404040;
     --color-fg-secondary: var(--grey-500);
     --color-fg-selected: var(--nice-grey);
-    --color-fg-tertiary: var(--grey-500);
-    --color-fg-warn: #cf212e;
     --color-progressbar-fg-1: #303030;
     --color-progressbar-fg-2: #edefff;
     --color-progressbar-fg-3: #edefff;
@@ -159,10 +141,8 @@
   }
   :root .contrast-more {
     --color-bg-even: var(--white);
-    --color-bg-hover: var(--grey-40);
     --color-bg-selected: var(--blue-300);
     --color-bg-tabs: var(--white);
-    --color-bg-warn: #cf6679;
     --color-border-default: var(--black);
     --color-border-stark: var(--black);
     --color-border-starkest: var(--black);
@@ -174,10 +154,6 @@
     --color-fg-primary: var(--black);
     --color-fg-secondary: var(--black);
     --color-fg-selected: var(--white);
-    --color-fg-tabs: var(--black);
-    --color-fg-tertiary: var(--black);
-    --color-fg-warn: var(--white);
-    --color-progressbar-background-2: var(--white);
     --color-progressbar-fg-1: #fff;
     --color-progressbar-fg-2: #fff;
     --color-progressbar-fg-3: #000;
@@ -1324,7 +1300,7 @@ dialog {
   --button-height: 40px; --button-padding: 8px 16px; --button-radius: 6px; --button-gap: 8px; /* Progress bar */
   --progress-height: 8px; --progress-radius: 999px; /* Icon sizes */
   --icon-size: 48px; /* Black color variable */
-  --black: #000000;}
+}
 /* ============================================
    Global Background
    ============================================ */
@@ -1430,7 +1406,6 @@ body,
   color: var(--primary-foreground);
 }
 
-
 #toolbar-open::before,
 #mainwin-toolbar [data-action="open-torrent"]::before {
   content: '';
@@ -1449,7 +1424,6 @@ body,
   vertical-align: middle;
   margin-top: -1px;
 }
-
 
 /* Destructive �?Delete (text color black per design) */
 #toolbar-delete,
@@ -1477,7 +1451,6 @@ body,
   margin-top: -1px;
 }
 
-
 /* Secondary �?Start */
 #toolbar-start,
 #mainwin-toolbar [data-action="resume-selected-torrents"] {
@@ -1503,7 +1476,6 @@ body,
   vertical-align: middle;
   margin-top: -1px;
 }
-
 
 /* Secondary �?Stop/Pause */
 #toolbar-pause,
@@ -1531,7 +1503,6 @@ body,
   margin-top: -1px;
 }
 
-
 /* Ghost �?Inspector */
 #toolbar-inspector,
 #mainwin-toolbar [data-action="show-inspector"] {
@@ -1557,7 +1528,6 @@ body,
   vertical-align: middle;
   margin-top: -1px;
 }
-
 
 /* Overflow Button - ellipsis icon (icon only, no text) */
 #mainwin-toolbar #toolbar-overflow,
@@ -1697,6 +1667,11 @@ body,
    ============================================ */
 #torrent-list .torrent .icon {background-color: var(--secondary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--muted-foreground); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04); /* Remove mask-image from original */
   -webkit-mask-image: none; mask-image: none; position: relative;}
+#torrent-list .torrent .icon[data-icon-multifile=true],
+#torrent-list .torrent.compact .icon[data-icon-multifile=true] {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
 /* Full mode icon (48x48) */
 #torrent-list .torrent:not(.compact) .icon {width: 48px; height: 48px; background-size: 24px, 12px;}
 /* Compact mode icon (20x20) */
