@@ -1940,10 +1940,10 @@ body,
 }
 /* Tabs buttons area */
 .tabs-buttons {background-color: var(--secondary); border: none; border-radius: 8px; padding: 4px; gap: 4px; margin: 0; align-self: stretch; display: flex; align-items: center; flex-shrink: 0;}
-.tabs-button {background: transparent; border: none; border-radius: 6px; color: var(--muted-foreground); font-size: 14px; font-weight: 500; padding: 8px 4px; height: auto; min-width: 70px; flex: 1; margin: 0; cursor: pointer; transition: background-color 0.15s ease, color 0.15s ease;}
-.tabs-button.selected,
-.tabs-button:active,
-.tabs-button:checked {background-color: var(--background); color: var(--foreground); border: none;}
+.tabs-buttons .tabs-button {background: transparent; border: none; border-radius: 6px; color: var(--muted-foreground); font-size: 14px; font-weight: 500; padding: 8px 4px; height: auto; min-width: 70px; flex: 1; margin: 0; cursor: pointer; transition: background-color 0.15s ease, color 0.15s ease;}
+.tabs-buttons .tabs-button.selected,
+.tabs-buttons .tabs-button:active,
+.tabs-buttons .tabs-button:checked {background-color: var(--background); color: var(--foreground); border: none;}
 /* Close button */
 .tabs-container-close {position: static; width: 32px; height: 32px; background-color: var(--background); color: var(--foreground); border-radius: 6px; font-size: 18px; padding: 0; display: flex; align-items: center; justify-content: center; line-height: 1; margin: 0; cursor: pointer; border: none; transition: opacity 0.15s ease;}
 .tabs-container-close:hover {opacity: 0.9;}
@@ -2376,6 +2376,25 @@ div.overflow-menu > div.overflow-section:nth-child(1) > div.menu-row > div.menu-
   width: 10px;
 }
 
+input[type="checkbox"][data-pref="sort-direction"],
+input[type="checkbox"][data-key="incomplete_dir_enabled"] {
+  -webkit-appearance: auto !important;
+  appearance: auto !important;
+  width: 16px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  accent-color: var(--primary) !important;
+  border-radius: 4px !important;
+  background: initial !important;
+  border: initial !important;
+  position: static !important;
+}
+
+input[type="checkbox"][data-pref="sort-direction"]:checked::after,
+input[type="checkbox"][data-key="incomplete_dir_enabled"]:checked::after {
+  content: none !important;
+}
+
 .menu-item label {
   color: var(--muted-foreground);
   cursor: pointer;
@@ -2447,7 +2466,7 @@ div.overflow-menu > div.overflow-section:nth-child(1) > div.menu-row > div.menu-
 #prefs-dialog .port-status-label[data-open='false'] {color: var(--red-500);}
 /* Close button for PrefsDialog */
 #prefs-dialog .tabs-container-close,
-#inspector .tabs-container-close {background-color: var(--card); border: 1px solid var(--border); margin-left: auto; flex-shrink: 0;}
+#inspector .tabs-container-close {background-color: var(--card); margin-left: auto; flex-shrink: 0;color:var(--white);}
 .popup.about-dialog,
 .popup.confirm-dialog,
 .popup.move-dialog,
