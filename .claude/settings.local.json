@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed 's/^[[:space:]]*//')",
+      "Bash(grep -E \"^[+-]\\\\s*[a-zA-Z0-9_#.*:\\\\[\\\\]>~, \\\\\"=-]+\\\\{\")",
+      "Bash(sed 's/^[+-]//')",
+      "Bash(grep -E \"^\\\\+.*\\\\{$\")",
+      "Bash(grep -E \"^-.*\\\\{$\")",
+      "Bash(grep -E \"^[[:space:]]*[a-zA-Z0-9_#.*:\\\\[\\\\]>~, \\\\\"=-]+\\\\{\" \"G:/Kimi Code/TransmissionWebUI/public_html/transmission-app.css\")",
+      "Bash(grep -E '^[[:space:]]*[a-zA-Z0-9_#.*:\\\\[\\\\]>=~, \\\\\"=-]+\\\\{')",
+      "Bash(python *)",
+      "WebSearch"
+    ]
+  }
+}
