@@ -10,7 +10,8 @@
       "Bash(grep -E '^[[:space:]]*[a-zA-Z0-9_#.*:\\\\[\\\\]>=~, \\\\\"=-]+\\\\{')",
       "Bash(python *)",
       "WebSearch",
-      "Bash(grep *)"
+      "Bash(grep *)",
+      "Bash(node *)"
     ]
   }
 }
